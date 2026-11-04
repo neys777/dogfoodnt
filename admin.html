@@ -200,8 +200,9 @@ function renderLogin(error = '') {
   $('#loginForm').addEventListener('submit', async e => {
     e.preventDefault();
     const t = $('#token').value.trim(); if (!t) return;
+    const remember = $('#remember').checked; // после входа форма исчезнет, поэтому читаем галочку заранее
     $('#loginBtn').disabled = true; $('#loginBtn').textContent = 'Проверяем…';
-    try { await start(new core.GitHubStore({ token: t, repo: REPO, branch: BRANCH })); setToken(t, $('#remember').checked); }
+    try { await start(new core.GitHubStore({ token: t, repo: REPO, branch: BRANCH })); setToken(t, remember); }
     catch (err) { renderLogin(err.message); }
   });
 }
