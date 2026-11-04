@@ -28,6 +28,7 @@ export function b64ToUtf8(b64) {
 
 export class ConflictError extends Error {}
 export class AuthError extends Error {}
+const NO_WRITE = 'У ключа нет права записи. На GitHub откройте ключ → Edit → Repository permissions → Contents: «Read and write» и проверьте, что выбран репозиторий dogfoodnt';
 
 // ---------- работа с репозиторием ----------
 export class GitHubStore {
@@ -45,6 +46,7 @@ export class GitHubStore {
     });
     const data = r.status === 204 ? null : await r.json().catch(() => null);
     if (r.status === 401) throw new AuthError('Ключ доступа не подходит или истёк');
+    if (r.status === 403 && /personal access token/i.test(data?.message || '')) throw new AuthError(NO_WRITE);
     if (r.status === 409 || (r.status === 422 && /sha/i.test(data?.message || ''))) throw new ConflictError('Данные уже изменил кто-то другой');
     if (!r.ok) throw new Error(`GitHub ${r.status}: ${data?.message || 'ошибка'}`);
     return data;
@@ -52,7 +54,14 @@ export class GitHubStore {
   // кто вошёл и можно ли ему записывать в репозиторий
   async check() {
     const [user, repo] = await Promise.all([this.api('GET', 'user'), this.api('GET', `repos/${this.repo}`)]);
-    if (!repo?.permissions?.push) throw new AuthError('У этого ключа нет права записи в репозиторий сайта');
+    if (!repo?.permissions?.push) throw new AuthError(NO_WRITE);
+    // права самого ключа: пробная запись с заведомо неверной версией файла. С правом записи GitHub отвечает
+    // «версия не совпадает» и ничего не меняет, без права — отказом 403
+    try {
+      await this.api('PUT', `repos/${this.repo}/contents/${DATA_PATH}`, { message: 'проверка прав', content: '', sha: '0'.repeat(40), branch: this.branch });
+    } catch (e) {
+      if (!(e instanceof ConflictError)) throw e;
+    }
     return { login: user.login, name: user.name || user.login };
   }
   async readJson(path = DATA_PATH) {

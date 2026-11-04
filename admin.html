@@ -389,7 +389,7 @@ async function save() {
     if (err instanceof core.ConflictError) {
       if (await modal('Данные изменил кто-то другой', ['Пока вы редактировали, другой человек сохранил изменения. Загрузите свежие данные и повторите свои правки.'],
         [['cancel', 'Остаться', 'ghost'], ['reload', 'Загрузить свежие', 'primary']]) === 'reload') { saving = false; await reload(); return; }
-    } else if (err instanceof core.AuthError) { toast(err.message, 4000); }
+    } else if (err instanceof core.AuthError) { await modal('Не удалось сохранить', [err.message], [['ok', 'Понятно', 'primary']]); }
     else toast('Не удалось сохранить: ' + err.message, 4000);
   }
   saving = false; render();
