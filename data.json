@@ -298,7 +298,7 @@
    "step": null,
    "bulk": null,
    "stock": "ok",
-   "hit": false,
+   "hit": true,
    "img": "img/udder.jpg"
   },
   {
@@ -1131,5 +1131,5 @@
    "img": "img/liver-dried.jpg"
   }
  ],
- "updated": "2026-11-04T12:05:37.538Z"
+ "updated": "2026-11-04T16:50:34.565Z"
 }
