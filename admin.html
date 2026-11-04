@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https://api.github.com; img-src 'self' data: blob: https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; base-uri 'self'; form-action 'none'">
+<title>Админка — Дог Фуд НТ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#FBF6EE;--paper:#FFFFFF;--ink:#2A1E18;--muted:#7A6A5F;--line:#EADFD0;--red:#A3302A;--red-d:#7E211C;--red-soft:#F6E2DC;
+  --green:#3F6B3A;--green-soft:#E3EEDC;--gold:#E8A33D;--gold-soft:#FBEBD1}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 Manrope,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+h1,h2{font-family:Unbounded,Manrope,sans-serif;margin:0}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer;border:0;background:none}
+a{color:var(--red)}
+.wrap{max-width:980px;margin:0 auto;padding:0 16px}
+.hidden{display:none!important}
+
+/* шапка */
+.top{position:sticky;top:0;z-index:20;background:rgba(251,246,238,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:12px;min-height:60px}
+.top img{height:40px}
+.top h1{font-size:16px}
+.top .who{margin-left:auto;font-size:13px;color:var(--muted);text-align:right;line-height:1.3}
+.top .who b{color:var(--ink);display:block}
+.link-btn{font-size:13px;font-weight:700;color:var(--red);padding:6px 0}
+.demo{background:var(--gold-soft);color:#6b4510;font-weight:700;font-size:13px;text-align:center;padding:8px 16px}
+
+/* вкладки */
+.tabs{display:flex;gap:6px;overflow-x:auto;padding:12px 0 4px;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{white-space:nowrap;padding:9px 14px;border-radius:999px;background:var(--paper);border:1px solid var(--line);font-weight:700;font-size:14px}
+.tab[aria-selected=true]{background:var(--ink);color:#fff;border-color:var(--ink)}
+
+/* вход */
+.login{max-width:440px;margin:40px auto;background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:26px}
+.login h2{font-size:20px;margin-bottom:8px}
+.login p{color:var(--muted);margin:0 0 14px}
+.field{display:grid;gap:5px;font-size:13px;font-weight:700;margin-bottom:12px}
+.in{width:100%;padding:11px 12px;border-radius:12px;border:1px solid var(--line);background:#fff;font-weight:600;font-size:15px;min-width:0}
+.in:focus{outline:2px solid var(--red);outline-offset:0;border-color:transparent}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 18px;border-radius:12px;font-weight:800}
+.btn.primary{background:var(--red);color:#fff}
+.btn.primary:hover{background:var(--red-d)}
+.btn.primary[disabled]{opacity:.5;cursor:default}
+.btn.ghost{background:var(--paper);border:1px solid var(--line)}
+.btn.full{width:100%}
+.btn[hidden]{display:none}
+.err{color:var(--red);font-weight:700;font-size:14px;margin:8px 0 0}
+.check{display:flex;gap:8px;align-items:center;font-size:13px;font-weight:600;color:var(--muted);margin-bottom:14px}
+
+/* панель инструментов списка */
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0 12px}
+.toolbar .search{flex:1 1 220px}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{padding:6px 11px;border-radius:999px;background:var(--paper);border:1px solid var(--line);font-size:13px;font-weight:700}
+.chip[aria-pressed=true]{background:var(--red);border-color:var(--red);color:#fff}
+.count{font-size:13px;color:var(--muted);font-weight:600;margin:0 0 8px}
+
+/* карточки */
+.list{display:grid;gap:10px;padding-bottom:110px}
+.card{display:grid;grid-template-columns:84px 1fr;gap:12px;background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:12px}
+.card.is-out{opacity:.72}
+.thumb{position:relative;width:84px;height:84px;border-radius:14px;overflow:hidden;background:var(--line);padding:0}
+.thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.thumb span{position:absolute;inset:auto 0 0 0;background:rgba(42,30,24,.72);color:#fff;font-size:11px;font-weight:800;padding:3px 0;text-align:center}
+.thumb.busy::after{content:"Загрузка…";position:absolute;inset:0;display:grid;place-items:center;background:rgba(255,255,255,.8);font-size:12px;font-weight:800}
+.main{display:grid;gap:8px;min-width:0}
+.name{font-weight:800}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.price{display:flex;align-items:center;gap:6px;flex:0 1 150px}
+.price .in{text-align:right}
+.price b{font-weight:800}
+.row select.in{flex:1 1 150px;width:auto}
+.seg{display:inline-flex;background:var(--bg);border-radius:12px;padding:3px;gap:2px}
+.seg button{padding:7px 11px;border-radius:9px;font-weight:800;font-size:13px;color:var(--muted)}
+.seg button[aria-pressed=true].s-ok{background:var(--green);color:#fff}
+.seg button[aria-pressed=true].s-low{background:var(--gold);color:#3b2504}
+.seg button[aria-pressed=true].s-out{background:var(--ink);color:#fff}
+.toggle{padding:7px 11px;border-radius:10px;border:1px solid var(--line);font-weight:800;font-size:13px;color:var(--muted);background:#fff}
+.toggle[aria-pressed=true]{background:var(--gold-soft);border-color:var(--gold);color:#6b4510}
+.more{margin-left:auto;font-size:13px;font-weight:800;color:var(--red);padding:7px 4px}
+.extra{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;padding-top:8px;border-top:1px dashed var(--line)}
+.extra .field{margin:0}
+.extra .wide{grid-column:1/-1}
+.danger{color:var(--red);font-weight:800;font-size:13px;padding:8px 0;justify-self:start}
+.parts{display:grid;gap:6px}
+.part{display:grid;grid-template-columns:1fr 78px 34px;gap:6px;align-items:center}
+.part .in{padding:9px 10px}
+.part button{height:36px;border-radius:10px;background:var(--bg);font-weight:800}
+.sum{font-size:13px;font-weight:800}
+.sum.bad{color:var(--red)}
+.sum.ok{color:var(--green)}
+.add{border:2px dashed var(--line);border-radius:18px;padding:14px;font-weight:800;color:var(--muted);background:transparent}
+.add:hover{border-color:var(--red);color:var(--red)}
+
+/* доставка и настройки */
+.panel{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:16px;display:grid;gap:12px;margin-bottom:12px}
+.panel h2{font-size:16px}
+.panel p.hint{margin:0;color:var(--muted);font-size:13px}
+textarea.in{resize:vertical;min-height:58px}
+.hol{display:flex;gap:8px;align-items:center}
+.hol .in{flex:1}
+
+/* нижняя панель сохранения */
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--paper);border-top:1px solid var(--line);box-shadow:0 -10px 30px -18px rgba(60,30,15,.4);padding:12px 16px calc(12px + env(safe-area-inset-bottom))}
+.bar .wrap{display:flex;gap:10px;align-items:center;padding:0}
+.bar .state{font-size:13px;font-weight:700;color:var(--muted);flex:1;min-width:0}
+.bar .state.dirty{color:var(--red)}
+.toast{position:fixed;left:50%;bottom:92px;transform:translate(-50%,20px);opacity:0;background:var(--ink);color:#fff;padding:12px 16px;border-radius:12px;font-weight:700;font-size:14px;z-index:40;transition:.25s;pointer-events:none;max-width:92vw;text-align:center}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+.modal{position:fixed;inset:0;z-index:50;background:rgba(30,18,12,.5);display:grid;place-items:center;padding:16px}
+.modal .box{background:var(--paper);border-radius:20px;padding:20px;max-width:480px;width:100%;max-height:80vh;overflow:auto}
+.modal h2{font-size:17px;margin-bottom:10px}
+.modal ul{margin:0 0 14px;padding-left:18px;font-size:14px}
+.modal .btns{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap}
+
+@media (min-width:760px){
+  .card{grid-template-columns:110px 1fr}
+  .thumb{width:110px;height:110px}
+}
+@media (max-width:420px){
+  .top h1{font-size:14px}
+  .bar .btn{padding:12px 14px}
+}
+</style>
+</head>
+<body>
+<div id="demo" class="demo hidden">Демо-режим: изменения не сохраняются на сайт</div>
+<header class="top"><div class="wrap">
+  <img src="img/logo-mark.png" alt="Дог Фуд НТ">
+  <h1>Админка</h1>
+  <div class="who" id="who"></div>
+</div></header>
+
+<main class="wrap" id="app"></main>
+
+<div class="bar hidden" id="bar"><div class="wrap">
+  <div class="state" id="state">Изменений нет</div>
+  <button class="btn ghost" id="undo" hidden>Отменить</button>
+  <button class="btn primary" id="save" disabled>Сохранить на сайт</button>
+</div></div>
+<input type="file" id="file" accept="image/*" hidden>
+<div class="toast" id="toast"></div>
+<div id="modal"></div>
+
+<script type="module">
+import * as core from './admin-core.js';
+
+/* ---------- состояние ---------- */
+const params = new URLSearchParams(location.search);
+const MOCK = params.has('mock');
+const REPO = params.get('repo') || core.DEFAULT_REPO;
+const BRANCH = params.get('branch') || core.DEFAULT_BRANCH;
+const TOKEN_KEY = 'dfnt-admin-token';
+let store = null, user = null, data = null, original = '', sha = '';
+let tab = 'items', cat = 'all', query = '', open = new Set(), busy = new Set(), saving = false;
+const previews = {}; // путь загруженного фото → временная ссылка, пока сайт не пересобрался
+
+const $ = s => document.querySelector(s);
+const esc = v => String(v ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const toast = (msg, ms = 2600) => { const t = $('#toast'); t.textContent = msg; t.classList.add('on'); clearTimeout(t._t); t._t = setTimeout(() => t.classList.remove('on'), ms); };
+const getToken = () => { try { return localStorage.getItem(TOKEN_KEY) || sessionStorage.getItem(TOKEN_KEY) || ''; } catch { return ''; } };
+const setToken = (t, remember) => { try { localStorage.removeItem(TOKEN_KEY); sessionStorage.removeItem(TOKEN_KEY); if (t) (remember ? localStorage : sessionStorage).setItem(TOKEN_KEY, t); } catch {} };
+const imgUrl = p => previews[p] || p;
+const dirty = () => data && JSON.stringify(data) !== original;
+
+// путь вида items.3.bulk.from → значение в data
+function setPath(path, value) {
+  const keys = path.split('.'); let o = data;
+  for (let i = 0; i < keys.length - 1; i++) { if (o[keys[i]] == null || typeof o[keys[i]] !== 'object') o[keys[i]] = {}; o = o[keys[i]]; }
+  o[keys.at(-1)] = value;
+}
+const getPath = path => path.split('.').reduce((o, k) => o?.[k], data);
+
+/* демо-хранилище: данные с сайта, сохранение только в этой вкладке */
+const mockStore = {
+  async check() { return { login: 'demo', name: 'Демо' }; },
+  async readJson() { const r = await fetch('data.json', { cache: 'no-store' }); return { data: await r.json(), sha: 'demo' }; },
+  async writeJson() { await new Promise(r => setTimeout(r, 400)); return 'demo-' + Date.now(); },
+  async uploadFile(path) { await new Promise(r => setTimeout(r, 300)); return path; }
+};
+
+/* ---------- вход ---------- */
+function renderLogin(error = '') {
+  $('#bar').classList.add('hidden'); $('#who').innerHTML = '';
+  $('#app').innerHTML = `<form class="login" id="loginForm">
+    <h2>Вход в админку</h2>
+    <p>Вставьте свой ключ доступа GitHub. Как его получить — в инструкции <b>АДМИНКА.md</b>.</p>
+    <label class="field">Ключ доступа<input class="in" id="token" type="password" autocomplete="off" spellcheck="false" placeholder="github_pat_…" required></label>
+    <label class="check"><input type="checkbox" id="remember" checked> Запомнить на этом устройстве</label>
+    <button class="btn primary full" id="loginBtn">Войти</button>
+    ${error ? `<p class="err">${esc(error)}</p>` : ''}
+  </form>`;
+  $('#loginForm').addEventListener('submit', async e => {
+    e.preventDefault();
+    const t = $('#token').value.trim(); if (!t) return;
+    $('#loginBtn').disabled = true; $('#loginBtn').textContent = 'Проверяем…';
+    try { await start(new core.GitHubStore({ token: t, repo: REPO, branch: BRANCH })); setToken(t, $('#remember').checked); }
+    catch (err) { renderLogin(err.message); }
+  });
+}
+
+async function start(s) {
+  store = s;
+  user = await store.check();
+  await reload();
+}
+async function reload() {
+  const r = await store.readJson();
+  data = r.data; sha = r.sha; original = JSON.stringify(data);
+  data.items ||= []; data.mixes ||= []; data.schedule ||= {}; data.holidays ||= []; data.settings ||= {};
+  original = JSON.stringify(data);
+  $('#who').innerHTML = `<b>${esc(user.name)}</b><button class="link-btn" id="logout">Выйти</button>`;
+  $('#bar').classList.remove('hidden');
+  render();
+}
+
+/* ---------- отрисовка ---------- */
+function render() {
+  const tabs = [['items', `Товары · ${data.items.length}`], ['mixes', `Миксы · ${data.mixes.length}`], ['delivery', 'Доставка'], ['settings', 'Настройки']];
+  $('#app').innerHTML = `<nav class="tabs" role="tablist">${tabs.map(([k, l]) => `<button class="tab" role="tab" data-tab="${k}" aria-selected="${tab === k}">${l}</button>`).join('')}</nav>
+    <section id="view">${{ items: viewItems, mixes: viewMixes, delivery: viewDelivery, settings: viewSettings }[tab]()}</section>`;
+  updateBar();
+}
+const stockSeg = (path, value) => `<div class="seg">${core.STOCKS.map(([k, l]) => `<button class="s-${k}" data-set="${path}" data-val="${k}" aria-pressed="${value === k}">${l}</button>`).join('')}</div>`;
+const thumb = (path, src, name) => `<button class="thumb ${busy.has(path) ? 'busy' : ''}" data-photo="${path}" aria-label="Заменить фото"><img src="${esc(imgUrl(src))}" alt="${esc(name)}" loading="lazy"><span>Фото</span></button>`;
+const input = (path, value, cls = '', attrs = '') => `<input class="in ${cls}" data-f="${path}" value="${esc(value)}" ${attrs}>`;
+const numIn = (path, value, attrs = '') => input(path, value ?? '', '', `inputmode="decimal" ${attrs}`);
+
+function viewItems() {
+  const q = query.trim().toLowerCase();
+  const list = data.items.map((p, i) => [p, i]).filter(([p]) => (cat === 'all' || p.cat === cat) && (!q || p.name.toLowerCase().includes(q)));
+  return `<div class="toolbar">
+      <input class="in search" id="search" placeholder="Поиск по названию" value="${esc(query)}">
+      <div class="chips">${[['all', 'Все'], ...core.CATEGORIES].map(([k, l]) => `<button class="chip" data-cat="${k}" aria-pressed="${cat === k}">${l}</button>`).join('')}</div>
+    </div>
+    <p class="count">Показано ${list.length} из ${data.items.length}</p>
+    <div class="list">
+      ${list.map(([p, i]) => itemCard(p, i)).join('')}
+      <button class="add" data-add="item">+ Добавить товар</button>
+    </div>`;
+}
+function itemCard(p, i) {
+  const b = `items.${i}`, isOpen = open.has(p.id);
+  return `<article class="card ${p.stock === 'out' ? 'is-out' : ''}">
+    ${thumb(b, p.img, p.name)}
+    <div class="main">
+      ${input(`${b}.name`, p.name, 'name', 'placeholder="Название товара"')}
+      <div class="row">
+        <label class="price">${numIn(`${b}.price`, p.price, 'aria-label="Цена"')}<b>₽</b></label>
+        <select class="in" data-f="${b}.unit" aria-label="За что цена">${core.UNITS.map(([k, l]) => `<option value="${k}" ${p.unit === k ? 'selected' : ''}>${l}</option>`).join('')}</select>
+      </div>
+      <div class="row">
+        ${stockSeg(`${b}.stock`, p.stock)}
+        <button class="toggle" data-toggle="${b}.hit" aria-pressed="${!!p.hit}">★ Хит</button>
+        <button class="more" data-open="${p.id}">${isOpen ? 'Свернуть' : 'Ещё'}</button>
+      </div>
+      ${isOpen ? `<div class="extra">
+        <label class="field">Категория<select class="in" data-f="${b}.cat">${core.CATEGORIES.map(([k, l]) => `<option value="${k}" ${p.cat === k ? 'selected' : ''}>${l}</option>`).join('')}</select></label>
+        <label class="field">Шаг «+» в корзине${numIn(`${b}.step`, p.step ?? '', 'placeholder="по умолчанию"')}</label>
+        <label class="field wide">Примечание под названием${input(`${b}.note`, p.note, '', 'placeholder="Например: фасовка по 1 кг"')}</label>
+        ${p.unit === 'lot' ? `<label class="field">Примерный вес блока, кг${numIn(`${b}.approx`, p.approx)}</label>` : ''}
+        <label class="field">Скидка от, шт${numIn(`${b}.bulk.from`, p.bulk?.from ?? '')}</label>
+        <label class="field">Цена со скидкой, ₽${numIn(`${b}.bulk.price`, p.bulk?.price ?? '')}</label>
+        <button class="danger" data-del="items.${i}">Удалить товар</button>
+      </div>` : ''}
+    </div>
+  </article>`;
+}
+
+function viewMixes() {
+  return `<div class="list" style="margin-top:10px">${data.mixes.map((m, i) => mixCard(m, i)).join('')}<button class="add" data-add="mix">+ Добавить микс</button></div>`;
+}
+function mixCard(m, i) {
+  const b = `mixes.${i}`;
+  const sum = (m.parts || []).reduce((s, p) => s + (Number(String(p.pct).replace(',', '.')) || 0), 0);
+  return `<article class="card ${m.stock === 'out' ? 'is-out' : ''}">
+    ${thumb(b, m.img, m.name)}
+    <div class="main">
+      <div class="row"><label class="price" style="flex:0 0 92px"><b>№</b>${numIn(`${b}.n`, m.n, 'aria-label="Номер"')}</label>${input(`${b}.name`, m.name, 'name', 'placeholder="Название микса" style="flex:1 1 180px;width:auto"')}</div>
+      ${input(`${b}.for`, m.for, '', 'placeholder="Для кого: например, для всех пород"')}
+      <div class="row">
+        <label class="price">${numIn(`${b}.price`, m.price, 'aria-label="Цена"')}<b>₽</b></label>
+        ${input(`${b}.pack`, m.pack, '', 'placeholder="Фасовка: 1 кг" style="flex:1 1 120px;width:auto" aria-label="Фасовка"')}
+      </div>
+      <div class="row">
+        ${stockSeg(`${b}.stock`, m.stock)}
+        <button class="toggle" data-toggle="${b}.hit" aria-pressed="${!!m.hit}">★ Хит</button>
+        <button class="toggle" data-toggle="${b}.isNew" aria-pressed="${!!m.isNew}">Новинка</button>
+      </div>
+      <div class="parts">
+        ${(m.parts || []).map((p, j) => `<div class="part">${input(`${b}.parts.${j}.name`, p.name, '', 'placeholder="Ингредиент"')}${numIn(`${b}.parts.${j}.pct`, p.pct, 'aria-label="Процент"')}<button data-delpart="${b}.parts.${j}" aria-label="Убрать">×</button></div>`).join('')}
+        <div class="row"><button class="link-btn" data-addpart="${b}">+ Ингредиент</button><span class="sum ${Math.round(sum) === 100 ? 'ok' : 'bad'}" data-sum="${b}">Сумма: ${sum}%</span></div>
+      </div>
+      <button class="danger" data-del="mixes.${i}">Удалить микс</button>
+    </div>
+  </article>`;
+}
+
+function viewDelivery() {
+  return `<div class="panel" style="margin-top:10px">
+      <h2>График доставки</h2>
+      <p class="hint">Районы через запятую. Пустое поле — в этот день доставки нет (самовывоз работает).</p>
+      ${core.WEEKDAYS.map(([k, l]) => `<label class="field">${l}<textarea class="in" data-areas="${k}" rows="2" placeholder="Например: Вагонка, Новая Кушва">${esc((data.schedule[k] || []).join(', '))}</textarea></label>`).join('')}
+    </div>
+    <div class="panel">
+      <h2>Выходные и праздники</h2>
+      <p class="hint">В эти дни нет ни доставки, ни самовывоза. Прошедшие даты можно не удалять.</p>
+      ${data.holidays.map((h, i) => `<div class="hol"><input class="in" type="date" data-f="holidays.${i}" value="${esc(h)}"><button class="btn ghost" data-delhol="${i}">Убрать</button></div>`).join('')}
+      <button class="add" data-add="holiday">+ Добавить дату</button>
+    </div>
+    <div style="height:90px"></div>`;
+}
+function viewSettings() {
+  const s = data.settings;
+  return `<div class="panel" style="margin-top:10px">
+      <h2>Доставка и заказы</h2>
+      <label class="field">Бесплатная доставка от, ₽${numIn('settings.freeFrom', s.freeFrom)}</label>
+      <label class="field">Стоимость доставки, если сумма меньше, ₽${numIn('settings.deliveryFee', s.deliveryFee)}</label>
+      <label class="field">Заказы на текущий день принимаются до, часов${numIn('settings.cutoffHour', s.cutoffHour)}</label>
+    </div>
+    <div class="panel">
+      <h2>Сайт</h2>
+      <p class="hint">Последнее сохранение: ${data.updated ? esc(new Date(data.updated).toLocaleString('ru-RU')) : '—'}</p>
+      <div class="row"><a class="btn ghost" href="index.html" target="_blank" rel="noopener">Открыть сайт</a><button class="btn ghost" id="reload">Загрузить свежие данные</button></div>
+    </div>
+    <div style="height:90px"></div>`;
+}
+
+function updateBar() {
+  const d = dirty();
+  $('#state').textContent = saving ? 'Сохраняем…' : d ? 'Есть несохранённые изменения' : 'Изменений нет';
+  $('#state').classList.toggle('dirty', d);
+  $('#save').disabled = !d || saving || busy.size > 0;
+  $('#undo').hidden = !d || saving;
+}
+
+/* ---------- фото: сжимаем до 1200 px и загружаем ---------- */
+async function shrink(file) {
+  const bmp = await createImageBitmap(file);
+  const k = Math.min(1, 1200 / Math.max(bmp.width, bmp.height));
+  const c = document.createElement('canvas'); c.width = Math.round(bmp.width * k); c.height = Math.round(bmp.height * k);
+  c.getContext('2d').drawImage(bmp, 0, 0, c.width, c.height);
+  const blob = await new Promise(r => c.toBlob(r, 'image/jpeg', 0.85));
+  return { bytes: new Uint8Array(await blob.arrayBuffer()), url: URL.createObjectURL(blob) };
+}
+let photoTarget = null;
+$('#file').addEventListener('change', async e => {
+  const file = e.target.files[0]; e.target.value = ''; const target = photoTarget;
+  if (!file || !target) return;
+  const obj = getPath(target);
+  busy.add(target); render();
+  try {
+    const { bytes, url } = await shrink(file);
+    const path = core.photoPath(obj.id);
+    await store.uploadFile(path, bytes, `Админка: фото для «${obj.name || obj.id}»`);
+    previews[path] = url; obj.img = path;
+    toast('Фото загружено. Нажмите «Сохранить на сайт»');
+  } catch (err) { toast('Не удалось загрузить фото: ' + err.message, 4000); }
+  busy.delete(target); render();
+});
+
+/* ---------- сохранение ---------- */
+function modal(title, items, buttons) {
+  return new Promise(res => {
+    $('#modal').innerHTML = `<div class="modal"><div class="box"><h2>${esc(title)}</h2>${items.length ? `<ul>${items.map(x => `<li>${esc(x)}</li>`).join('')}</ul>` : ''}
+      <div class="btns">${buttons.map(([v, l, cls]) => `<button class="btn ${cls}" data-mres="${v}">${esc(l)}</button>`).join('')}</div></div></div>`;
+    $('#modal').onclick = e => { const b = e.target.closest('[data-mres]'); if (b) { $('#modal').innerHTML = ''; res(b.dataset.mres); } };
+  });
+}
+async function save() {
+  const { errors, warnings } = core.validate(data);
+  if (errors.length) { await modal('Исправьте перед сохранением', errors, [['ok', 'Понятно', 'primary']]); return; }
+  if (warnings.length && await modal('Проверьте', warnings, [['cancel', 'Вернуться', 'ghost'], ['go', 'Всё равно сохранить', 'primary']]) !== 'go') return;
+  saving = true; updateBar();
+  try {
+    const clean = core.normalize(data);
+    sha = await store.writeJson(clean, sha, `Админка: изменения от ${user.login}`);
+    data = clean; original = JSON.stringify(data);
+    toast('Сохранено. На сайте изменения появятся через 1–2 минуты', 4000);
+  } catch (err) {
+    if (err instanceof core.ConflictError) {
+      if (await modal('Данные изменил кто-то другой', ['Пока вы редактировали, другой человек сохранил изменения. Загрузите свежие данные и повторите свои правки.'],
+        [['cancel', 'Остаться', 'ghost'], ['reload', 'Загрузить свежие', 'primary']]) === 'reload') { saving = false; await reload(); return; }
+    } else if (err instanceof core.AuthError) { toast(err.message, 4000); }
+    else toast('Не удалось сохранить: ' + err.message, 4000);
+  }
+  saving = false; render();
+}
+
+/* ---------- события ---------- */
+const NUMERIC = /\.(price|n|step|approx|pct|from|freeFrom|deliveryFee|cutoffHour)$/;
+document.addEventListener('input', e => {
+  const t = e.target;
+  if (t.id === 'search') { query = t.value; const pos = t.selectionStart; render(); const s = $('#search'); s.focus(); s.setSelectionRange(pos, pos); return; }
+  if (t.dataset.areas) { data.schedule[t.dataset.areas] = t.value.split(/[,;\n]/).map(s => s.trim()).filter(Boolean); updateBar(); return; }
+  const f = t.dataset.f; if (!f) return;
+  setPath(f, NUMERIC.test(f) ? t.value.replace(',', '.') : t.value);
+  if (/\.unit$/.test(f) || /\.cat$/.test(f)) render();
+  const m = f.match(/^(mixes\.\d+)\.parts/);
+  if (m) { const el = document.querySelector(`[data-sum="${m[1]}"]`); const sum = getPath(m[1]).parts.reduce((s, p) => s + (Number(p.pct) || 0), 0); el.textContent = `Сумма: ${sum}%`; el.className = `sum ${Math.round(sum) === 100 ? 'ok' : 'bad'}`; }
+  updateBar();
+});
+document.addEventListener('change', e => { if (e.target.matches('select[data-f]')) { setPath(e.target.dataset.f, e.target.value); render(); } });
+document.addEventListener('click', async e => {
+  const b = e.target.closest('button,a'); if (!b) return;
+  const d = b.dataset;
+  if (b.id === 'logout') { if (dirty() && await modal('Выйти без сохранения?', ['Несохранённые изменения пропадут.'], [['cancel', 'Остаться', 'ghost'], ['go', 'Выйти', 'primary']]) !== 'go') return; setToken(''); data = null; renderLogin(); }
+  else if (b.id === 'save') save();
+  else if (b.id === 'undo') { data = JSON.parse(original); render(); toast('Изменения отменены'); }
+  else if (b.id === 'reload') { if (!dirty() || await modal('Загрузить свежие данные?', ['Несохранённые изменения пропадут.'], [['cancel', 'Отмена', 'ghost'], ['go', 'Загрузить', 'primary']]) === 'go') await reload(); }
+  else if (d.tab) { tab = d.tab; render(); scrollTo(0, 0); }
+  else if (d.cat) { cat = d.cat; render(); }
+  else if (d.set) { setPath(d.set, d.val); render(); }
+  else if (d.toggle) { setPath(d.toggle, !getPath(d.toggle)); render(); }
+  else if (d.open) { open.has(d.open) ? open.delete(d.open) : open.add(d.open); render(); }
+  else if (d.photo) { photoTarget = d.photo; $('#file').click(); }
+  else if (d.add === 'item') { const it = core.emptyItem(cat === 'all' ? 'beef' : cat); data.items.push(it); open.add(it.id); query = ''; render(); document.querySelector('.list .card:last-of-type .name')?.focus(); }
+  else if (d.add === 'mix') { data.mixes.push(core.emptyMix(data)); render(); document.querySelector('.list .card:last-of-type .name')?.focus(); }
+  else if (d.add === 'holiday') { data.holidays.push(new Date().toISOString().slice(0, 10)); render(); }
+  else if (d.delhol) { data.holidays.splice(+d.delhol, 1); render(); }
+  else if (d.addpart) { getPath(d.addpart).parts.push({ name: '', pct: 0 }); render(); }
+  else if (d.delpart) { const [, mi, , pi] = d.delpart.split('.'); data.mixes[mi].parts.splice(+pi, 1); render(); }
+  else if (d.del) {
+    const [coll, idx] = d.del.split('.'); const obj = data[coll][idx];
+    if (await modal(`Удалить «${obj.name || 'без названия'}»?`, ['Товар пропадёт с сайта после сохранения. Если он просто закончился — лучше поставьте «Нет».'], [['cancel', 'Отмена', 'ghost'], ['go', 'Удалить', 'primary']]) === 'go') { data[coll].splice(+idx, 1); render(); }
+  }
+});
+addEventListener('beforeunload', e => { if (dirty()) { e.preventDefault(); e.returnValue = ''; } });
+
+/* ---------- запуск ---------- */
+(async () => {
+  if (MOCK) {
+    $('#demo').classList.remove('hidden');
+    window.__adminTest = { target: p => { photoTarget = p; }, data: () => data }; // только для проверки демо-режима
+    await start(mockStore); return;
+  }
+  if (BRANCH !== core.DEFAULT_BRANCH) { $('#demo').textContent = `Тестовая ветка: ${BRANCH}`; $('#demo').classList.remove('hidden'); }
+  const t = getToken();
+  if (!t) return renderLogin();
+  $('#app').innerHTML = '<p style="padding:40px 0;text-align:center;color:var(--muted)">Загружаем…</p>';
+  try { await start(new core.GitHubStore({ token: t, repo: REPO, branch: BRANCH })); }
+  catch (err) { if (err instanceof core.AuthError) setToken(''); renderLogin(err.message); }
+})();
+</script>
+</body>
+</html>

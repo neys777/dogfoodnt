@@ -1,0 +1,1135 @@
+{
+ "settings": {
+  "freeFrom": 1500,
+  "deliveryFee": 100,
+  "cutoffHour": 11
+ },
+ "schedule": {
+  "1": [
+   "Старатель",
+   "Вагонка",
+   "Новая Кушва",
+   "Валегин Бор"
+  ],
+  "2": [
+   "ГГМ",
+   "Старая Гальянка",
+   "Голый Камень"
+  ],
+  "3": [],
+  "4": [
+   "Вагонка",
+   "Новая Кушва",
+   "Валегин Бор",
+   "Сухоложский посёлок",
+   "Верхняя Салда (раздача)"
+  ],
+  "5": [
+   "Центр",
+   "Красный Камень",
+   "Выя",
+   "ГГМ"
+  ]
+ },
+ "holidays": [
+  "2026-11-04"
+ ],
+ "mixes": [
+  {
+   "id": "m1",
+   "n": 1,
+   "name": "Говяжий основной",
+   "for": "для всех пород",
+   "price": 440,
+   "pack": "1 кг",
+   "parts": [
+    {
+     "name": "Говядина гуляш",
+     "pct": 60
+    },
+    {
+     "name": "Рубец говяжий",
+     "pct": 40
+    }
+   ],
+   "isNew": false,
+   "stock": "ok",
+   "hit": true,
+   "img": "img/mix1.jpg"
+  },
+  {
+   "id": "m2",
+   "n": 2,
+   "name": "Говяжий рацион",
+   "for": "для всех пород",
+   "price": 400,
+   "pack": "1 кг",
+   "parts": [
+    {
+     "name": "Обрезь говяжья",
+     "pct": 50
+    },
+    {
+     "name": "Срез сердца",
+     "pct": 40
+    },
+    {
+     "name": "Печень говяжья",
+     "pct": 10
+    }
+   ],
+   "isNew": false,
+   "stock": "ok",
+   "hit": true,
+   "img": "img/mix2.jpg"
+  },
+  {
+   "id": "m3",
+   "n": 3,
+   "name": "Из говяжьих субпродуктов",
+   "for": "для всех пород",
+   "price": 130,
+   "pack": "0,5 кг",
+   "parts": [
+    {
+     "name": "Лёгкое",
+     "pct": 40
+    },
+    {
+     "name": "Вымя",
+     "pct": 40
+    },
+    {
+     "name": "Селезёнка",
+     "pct": 20
+    }
+   ],
+   "isNew": false,
+   "stock": "ok",
+   "hit": false,
+   "img": "img/mix3.jpg"
+  },
+  {
+   "id": "m4",
+   "n": 4,
+   "name": "Диетический из индейки",
+   "for": "для чувствительного пищеварения",
+   "price": 300,
+   "pack": "0,5 кг",
+   "parts": [
+    {
+     "name": "Мясо индейки",
+     "pct": 40
+    },
+    {
+     "name": "Желудок индейки",
+     "pct": 40
+    },
+    {
+     "name": "Печень индейки",
+     "pct": 20
+    }
+   ],
+   "isNew": false,
+   "stock": "ok",
+   "hit": false,
+   "img": "img/mix4.jpg"
+  },
+  {
+   "id": "m5",
+   "n": 5,
+   "name": "Говяжий питательный",
+   "for": "для средних и крупных пород",
+   "price": 370,
+   "pack": "1 кг",
+   "parts": [
+    {
+     "name": "Подъязычный срез",
+     "pct": 55
+    },
+    {
+     "name": "Вымя",
+     "pct": 30
+    },
+    {
+     "name": "Трахея (хрящ)",
+     "pct": 10
+    },
+    {
+     "name": "Почки",
+     "pct": 5
+    }
+   ],
+   "isNew": false,
+   "stock": "ok",
+   "hit": false,
+   "img": "img/mix5.jpg"
+  },
+  {
+   "id": "m6",
+   "n": 6,
+   "name": "Куриный",
+   "for": "полноценный рацион, все породы",
+   "price": 180,
+   "pack": "0,5 кг",
+   "parts": [
+    {
+     "name": "Спинки мясные",
+     "pct": 55
+    },
+    {
+     "name": "Желудок",
+     "pct": 20
+    },
+    {
+     "name": "Сердце",
+     "pct": 20
+    },
+    {
+     "name": "Печень",
+     "pct": 5
+    }
+   ],
+   "isNew": false,
+   "stock": "ok",
+   "hit": true,
+   "img": "img/mix6.jpg"
+  },
+  {
+   "id": "m7",
+   "n": 7,
+   "name": "Утиный",
+   "for": "все породы и даже котики",
+   "price": 300,
+   "pack": "0,5 кг",
+   "parts": [
+    {
+     "name": "Рагу / филе голени",
+     "pct": 55
+    },
+    {
+     "name": "Желудок без кутикулы",
+     "pct": 35
+    },
+    {
+     "name": "Печень утиная",
+     "pct": 10
+    }
+   ],
+   "isNew": false,
+   "stock": "ok",
+   "hit": false,
+   "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Frozen-fresh_duck_gizzards.jpg/960px-Frozen-fresh_duck_gizzards.jpg"
+  },
+  {
+   "id": "m8",
+   "n": 8,
+   "name": "Рыбный день",
+   "for": "разнообразие в рационе",
+   "price": 165,
+   "pack": "0,5 кг",
+   "parts": [
+    {
+     "name": "Хамса",
+     "pct": 30
+    },
+    {
+     "name": "Путассу",
+     "pct": 30
+    },
+    {
+     "name": "Фарш горбуши",
+     "pct": 30
+    },
+    {
+     "name": "Морская капуста",
+     "pct": 10
+    }
+   ],
+   "isNew": false,
+   "stock": "ok",
+   "hit": false,
+   "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Anci%C3%B6e_crue_a_l%27agro_-_Liguria.jpg/960px-Anci%C3%B6e_crue_a_l%27agro_-_Liguria.jpg"
+  },
+  {
+   "id": "m9",
+   "n": 9,
+   "name": "Для щенков и котиков",
+   "for": "мелкий помол, для проблемных зубов",
+   "price": 220,
+   "pack": "0,5 кг",
+   "parts": [
+    {
+     "name": "Шеи утки",
+     "pct": 40
+    },
+    {
+     "name": "Обрезь корпусная",
+     "pct": 30
+    },
+    {
+     "name": "Сердце",
+     "pct": 10
+    },
+    {
+     "name": "Печень",
+     "pct": 10
+    },
+    {
+     "name": "Трахея",
+     "pct": 10
+    }
+   ],
+   "isNew": true,
+   "stock": "ok",
+   "hit": false,
+   "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/Hakket-oksekoed.jpg/960px-Hakket-oksekoed.jpg"
+  }
+ ],
+ "items": [
+  {
+   "id": "p0",
+   "cat": "beef",
+   "name": "Вымя говяжье",
+   "price": 120,
+   "unit": "kg",
+   "note": "",
+   "approx": 0,
+   "step": null,
+   "bulk": null,
+   "stock": "ok",
+   "hit": false,
+   "img": "img/udder.jpg"
+  },
+  {
+   "id": "p1",
+   "cat": "beef",
+   "name": "Губы говяжьи (шерсть)",
+   "price": 135,
+   "unit": "kg",
+   "note": "",
+   "approx": 0,
+   "step": null,
+   "bulk": null,
+   "stock": "ok",
+   "hit": false,
+   "img": "img/kaltyk.jpg"
+  },
+  {
+   "id": "p2",
+   "cat": "beef",
+   "name": "Кость суставная бульонная",
+   "price": 110,
+   "unit": "kg",
+   "note": "",
+   "approx": 0,
+   "step": null,
+   "bulk": null,
+   "stock": "ok",
+   "hit": false,
+   "img": "img/tail.jpg"
+  },
+  {
+   "id": "p3",
+   "cat": "beef",
+   "name": "Лёгкое говяжье",
+   "price": 170,
+   "unit": "kg",
+   "note": "",
+   "approx": 0,
+   "step": null,
+   "bulk": null,
+   "stock": "ok",
+   "hit": false,
+   "img": "img/lung.jpg"
+  },
+  {
+   "id": "p4",
+   "cat": "beef",
+   "name": "Лопаточный хрящ говяжий",
+   "price": 230,
+   "unit": "kg",
+   "note": "",
+   "approx": 0,
+   "step": null,
+   "bulk": null,
+   "stock": "ok",
+   "hit": false,
+   "img": "img/trim-kasha.jpg"
+  },
+  {
+   "id": "p5",
+   "cat": "beef",
+   "name": "Мясное основание бычьего корня",
+   "price": 320,
+   "unit": "kg",
+   "note": "",
+   "approx": 0,
+   "step": null,
+   "bulk": null,
+   "stock": "low",
+   "hit": false,
+   "img": "img/pizzle-dried.jpg"
+  },
+  {
+   "id": "p6",
+   "cat": "beef",
+   "name": "Нос говяжий (шерсть)",
+   "price": 150,
+   "unit": "kg",
+   "note": "",
+   "approx": 0,
+   "step": null,
+   "bulk": null,
+   "stock": "ok",
+   "hit": false,
+   "img": "img/nose-dried-fur.jpg"
+  },
+  {
+   "id": "p7",
+   "cat": "beef",
+   "name": "Обрезь говяжья корпусная",
+   "price": 370,
+   "unit": "kg",
+   "note": "",
+   "approx": 0,
+   "step": null,
+   "bulk": null,
+   "stock": "ok",
+   "hit": false,
+   "img": "img/kaltyk.jpg"
+  },
+  {
+   "id": "p8",
+   "cat": "beef",
+   "name": "Обрезь «Наваристая каша» (жир и жилы)",
+   "price": 100,
+   "unit": "lot",
+   "note": "Распил ≈ 5 кг, цена за кг",
+   "approx": 5,
+   "step": null,
+   "bulk": null,
+   "stock": "ok",
+   "hit": false,
+   "img": "img/trim-kasha.jpg"
+  },
+  {
+   "id": "p9",
+   "cat": "beef",
+   "name": "Печень говяжья",
+   "price": 210,
+   "unit": "kg",
+   "note": "",
+   "approx": 0,
+   "step": null,
+   "bulk": null,
+   "stock": "ok",
+   "hit": true,
+   "img": "img/liver.jpg"
+  },
+  {
+   "id": "p10",
+   "cat": "beef",
+   "name": "Подъязычный срез говяжий",
+   "price": 320,
+   "unit": "kg",
+   "note": "",
+   "approx": 0,
+   "step": null,
+   "bulk": null,
+   "stock": "ok",
+   "hit": true,
+   "img": "img/kaltyk.jpg"
+  },
+  {
+   "id": "p11",
+   "cat": "beef",
+   "name": "Почки говяжьи",
+   "price": 170,
+   "unit": "kg",
+   "note": "",
+   "approx": 0,
+   "step": null,
+   "bulk": null,
+   "stock": "ok",
+   "hit": false,
+   "img": "img/kidney.jpg"
+  },
+  {
+   "id": "p12",
+   "cat": "beef",
+   "name": "Рубец говяжий зелёный, блок",
+   "price": 110,
+   "unit": "lot",
+   "note": "Блок 17–20 кг, цена за кг",
+   "approx": 18.5,
+   "step": null,
+   "bulk": null,
+   "stock": "ok",
+   "hit": false,
+   "img": "img/tripe.jpg"
+  },
+  {
+   "id": "p13",
+   "cat": "beef",
+   "name": "Рубец говяжий зелёный, нарезка",
+   "price": 160,
+   "unit": "kg",
+   "note": "Фасовка по 1 кг",
+   "approx": 0,
+   "step": 1,
+   "bulk": null,
+   "stock": "ok",
+   "hit": true,
+   "img": "img/tripe.jpg"
+  },
+  {
+   "id": "p14",
+   "cat": "beef",
+   "name": "Селезёнка говяжья",
+   "price": 110,
+   "unit": "kg",
+   "note": "",
+   "approx": 0,
+   "step": null,
+   "bulk": null,
+   "stock": "ok",
+   "hit": false,
+   "img": "img/liver.jpg"
+  },
+  {
+   "id": "p15",
+   "cat": "beef",
+   "name": "Семенники бычьи",
+   "price": 175,
+   "unit": "kg",
+   "note": "",
+   "approx": 0,
+   "step": null,
+   "bulk": null,
+   "stock": "ok",
+   "hit": false,
+   "img": "img/bull-testicles.jpg"
+  },
+  {
+   "id": "p16",
+   "cat": "beef",
+   "name": "Сердце говяжье",
+   "price": 380,
+   "unit": "kg",
+   "note": "",
+   "approx": 0,
+   "step": null,
+   "bulk": null,
+   "stock": "ok",
+   "hit": true,
+   "img": "img/beef-heart.jpg"
+  },
+  {
+   "id": "p17",
+   "cat": "beef",
+   "name": "Спил говяжий (очень мелкий фарш)",
+   "price": 160,
+   "unit": "kg",
+   "note": "Остатки из-под распила",
+   "approx": 0,
+   "step": null,
+   "bulk": null,
+   "stock": "ok",
+   "hit": false,
+   "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/Hakket-oksekoed.jpg/960px-Hakket-oksekoed.jpg"
+  },
+  {
+   "id": "p18",
+   "cat": "beef",
+   "name": "Срез сердца говяжьего (клапан)",
+   "price": 190,
+   "unit": "kg",
+   "note": "",
+   "approx": 0,
+   "step": null,
+   "bulk": null,
+   "stock": "ok",
+   "hit": false,
+   "img": "img/beef-heart.jpg"
+  },
+  {
+   "id": "p19",
+   "cat": "beef",
+   "name": "Суповой набор говяжий",
+   "price": 120,
+   "unit": "kg",
+   "note": "",
+   "approx": 0,
+   "step": null,
+   "bulk": null,
+   "stock": "ok",
+   "hit": false,
+   "img": "img/tail.jpg"
+  },
+  {
+   "id": "p20",
+   "cat": "beef",
+   "name": "Трахея говяжья с привязью",
+   "price": 200,
+   "unit": "kg",
+   "note": "",
+   "approx": 0,
+   "step": null,
+   "bulk": null,
+   "stock": "ok",
+   "hit": false,
+   "img": "img/trachea-dried.jpg"
+  },
+  {
+   "id": "p21",
+   "cat": "beef",
+   "name": "Уши говяжьи (шерсть)",
+   "price": 110,
+   "unit": "kg",
+   "note": "",
+   "approx": 0,
+   "step": null,
+   "bulk": null,
+   "stock": "ok",
+   "hit": false,
+   "img": "img/ear-dried-fur.jpg"
+  },
+  {
+   "id": "p22",
+   "cat": "beef",
+   "name": "Хвост говяжий (пиленый)",
+   "price": 300,
+   "unit": "kg",
+   "note": "",
+   "approx": 0,
+   "step": null,
+   "bulk": null,
+   "stock": "ok",
+   "hit": false,
+   "img": "img/tail.jpg"
+  },
+  {
+   "id": "p23",
+   "cat": "turkey",
+   "name": "Головы индейки",
+   "price": 130,
+   "unit": "kg",
+   "note": "",
+   "approx": 0,
+   "step": null,
+   "bulk": null,
+   "stock": "ok",
+   "hit": false,
+   "img": "img/duck-heads.jpg"
+  },
+  {
+   "id": "p24",
+   "cat": "turkey",
+   "name": "Гузка индейки",
+   "price": 190,
+   "unit": "kg",
+   "note": "",
+   "approx": 0,
+   "step": null,
+   "bulk": null,
+   "stock": "ok",
+   "hit": false,
+   "img": "img/turkey-meat.jpg"
+  },
+  {
+   "id": "p25",
+   "cat": "turkey",
+   "name": "Желудок индейки",
+   "price": 390,
+   "unit": "kg",
+   "note": "",
+   "approx": 0,
+   "step": null,
+   "bulk": null,
+   "stock": "ok",
+   "hit": false,
+   "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Gesierdecanarddeslandes.jpg/960px-Gesierdecanarddeslandes.jpg"
+  },
+  {
+   "id": "p26",
+   "cat": "turkey",
+   "name": "Мясо индейки (филе голени и бедра)",
+   "price": 430,
+   "unit": "kg",
+   "note": "С небольшими хрящиками",
+   "approx": 0,
+   "step": null,
+   "bulk": null,
+   "stock": "ok",
+   "hit": true,
+   "img": "img/turkey-meat.jpg"
+  },
+  {
+   "id": "p27",
+   "cat": "turkey",
+   "name": "Кожа индейки",
+   "price": 150,
+   "unit": "kg",
+   "note": "",
+   "approx": 0,
+   "step": null,
+   "bulk": null,
+   "stock": "ok",
+   "hit": false,
+   "img": "img/turkey-meat.jpg"
+  },
+  {
+   "id": "p28",
+   "cat": "turkey",
+   "name": "Семенники индюка",
+   "price": 360,
+   "unit": "kg",
+   "note": "",
+   "approx": 0,
+   "step": null,
+   "bulk": null,
+   "stock": "ok",
+   "hit": false,
+   "img": "img/turkey-testicles.jpg"
+  },
+  {
+   "id": "p29",
+   "cat": "turkey",
+   "name": "Сердце индейки",
+   "price": 700,
+   "unit": "kg",
+   "note": "",
+   "approx": 0,
+   "step": null,
+   "bulk": null,
+   "stock": "ok",
+   "hit": false,
+   "img": "img/beef-heart.jpg"
+  },
+  {
+   "id": "p30",
+   "cat": "turkey",
+   "name": "Фарш-масса индейки",
+   "price": 90,
+   "unit": "kg",
+   "note": "",
+   "approx": 0,
+   "step": null,
+   "bulk": null,
+   "stock": "ok",
+   "hit": false,
+   "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/%D0%A4%D0%B0%D1%80%D1%88.jpg/960px-%D0%A4%D0%B0%D1%80%D1%88.jpg"
+  },
+  {
+   "id": "p31",
+   "cat": "turkey",
+   "name": "Шеи индейки (пиленые)",
+   "price": 240,
+   "unit": "kg",
+   "note": "",
+   "approx": 0,
+   "step": null,
+   "bulk": null,
+   "stock": "ok",
+   "hit": false,
+   "img": "img/duck-necks.jpg"
+  },
+  {
+   "id": "p32",
+   "cat": "duck",
+   "name": "Головы утки",
+   "price": 140,
+   "unit": "kg",
+   "note": "",
+   "approx": 0,
+   "step": null,
+   "bulk": null,
+   "stock": "ok",
+   "hit": false,
+   "img": "img/duck-heads.jpg"
+  },
+  {
+   "id": "p33",
+   "cat": "duck",
+   "name": "Желудок утки",
+   "price": 450,
+   "unit": "kg",
+   "note": "",
+   "approx": 0,
+   "step": null,
+   "bulk": null,
+   "stock": "ok",
+   "hit": false,
+   "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Frozen-fresh_duck_gizzards.jpg/960px-Frozen-fresh_duck_gizzards.jpg"
+  },
+  {
+   "id": "p34",
+   "cat": "duck",
+   "name": "Печень утиная",
+   "price": 390,
+   "unit": "kg",
+   "note": "",
+   "approx": 0,
+   "step": null,
+   "bulk": null,
+   "stock": "ok",
+   "hit": false,
+   "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Preparing_Chicken_Liver_02.JPG/960px-Preparing_Chicken_Liver_02.JPG"
+  },
+  {
+   "id": "p35",
+   "cat": "duck",
+   "name": "Фарш утиный (батон 0,9 кг)",
+   "price": 170,
+   "unit": "pcs",
+   "note": "",
+   "approx": 0,
+   "step": null,
+   "bulk": null,
+   "stock": "ok",
+   "hit": false,
+   "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/%D0%A4%D0%B0%D1%80%D1%88.jpg/960px-%D0%A4%D0%B0%D1%80%D1%88.jpg"
+  },
+  {
+   "id": "p36",
+   "cat": "duck",
+   "name": "Шеи утиные",
+   "price": 200,
+   "unit": "kg",
+   "note": "",
+   "approx": 0,
+   "step": null,
+   "bulk": null,
+   "stock": "ok",
+   "hit": true,
+   "img": "img/duck-necks.jpg"
+  },
+  {
+   "id": "p37",
+   "cat": "chicken",
+   "name": "Головы кур (бройлер)",
+   "price": 110,
+   "unit": "kg",
+   "note": "",
+   "approx": 0,
+   "step": null,
+   "bulk": null,
+   "stock": "ok",
+   "hit": false,
+   "img": "img/hen-heads.jpg"
+  },
+  {
+   "id": "p38",
+   "cat": "chicken",
+   "name": "Головы кур с гребнем",
+   "price": 80,
+   "unit": "kg",
+   "note": "",
+   "approx": 0,
+   "step": null,
+   "bulk": null,
+   "stock": "ok",
+   "hit": false,
+   "img": "img/hen-heads.jpg"
+  },
+  {
+   "id": "p39",
+   "cat": "chicken",
+   "name": "Желудок куриный (бройлер)",
+   "price": 250,
+   "unit": "kg",
+   "note": "",
+   "approx": 0,
+   "step": null,
+   "bulk": null,
+   "stock": "ok",
+   "hit": false,
+   "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Chicken_gizzards.jpg/960px-Chicken_gizzards.jpg"
+  },
+  {
+   "id": "p40",
+   "cat": "chicken",
+   "name": "Лапы куриные (бройлер)",
+   "price": 130,
+   "unit": "kg",
+   "note": "",
+   "approx": 0,
+   "step": null,
+   "bulk": null,
+   "stock": "ok",
+   "hit": false,
+   "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Processed_Frozen_Chicken_Feet_%26_frozen_chicken_Paws.jpg/960px-Processed_Frozen_Chicken_Feet_%26_frozen_chicken_Paws.jpg"
+  },
+  {
+   "id": "p41",
+   "cat": "chicken",
+   "name": "Печень куриная (бройлер)",
+   "price": 280,
+   "unit": "kg",
+   "note": "",
+   "approx": 0,
+   "step": null,
+   "bulk": null,
+   "stock": "ok",
+   "hit": false,
+   "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Preparing_Chicken_Liver_02.JPG/960px-Preparing_Chicken_Liver_02.JPG"
+  },
+  {
+   "id": "p42",
+   "cat": "chicken",
+   "name": "Суповой набор куриный (спинки мясные)",
+   "price": 150,
+   "unit": "kg",
+   "note": "",
+   "approx": 0,
+   "step": null,
+   "bulk": null,
+   "stock": "ok",
+   "hit": false,
+   "img": "img/mix6.jpg"
+  },
+  {
+   "id": "p43",
+   "cat": "chicken",
+   "name": "Шея куриная (бройлер)",
+   "price": 150,
+   "unit": "kg",
+   "note": "",
+   "approx": 0,
+   "step": null,
+   "bulk": null,
+   "stock": "ok",
+   "hit": false,
+   "img": "img/duck-necks.jpg"
+  },
+  {
+   "id": "p44",
+   "cat": "chicken",
+   "name": "Шея куриная",
+   "price": 110,
+   "unit": "kg",
+   "note": "",
+   "approx": 0,
+   "step": null,
+   "bulk": null,
+   "stock": "ok",
+   "hit": false,
+   "img": "img/duck-necks.jpg"
+  },
+  {
+   "id": "p45",
+   "cat": "treat",
+   "name": "Бычий корень сушёный",
+   "price": 280,
+   "unit": "g100",
+   "note": "",
+   "approx": 0,
+   "step": null,
+   "bulk": null,
+   "stock": "ok",
+   "hit": true,
+   "img": "img/pizzle-dried.jpg"
+  },
+  {
+   "id": "p46",
+   "cat": "treat",
+   "name": "Вымя говяжье сушёное",
+   "price": 140,
+   "unit": "g100",
+   "note": "",
+   "approx": 0,
+   "step": null,
+   "bulk": null,
+   "stock": "ok",
+   "hit": false,
+   "img": "img/udder-dried.jpg"
+  },
+  {
+   "id": "p47",
+   "cat": "treat",
+   "name": "Лёгкое говяжье сушёное",
+   "price": 170,
+   "unit": "g100",
+   "note": "",
+   "approx": 0,
+   "step": null,
+   "bulk": null,
+   "stock": "ok",
+   "hit": false,
+   "img": "img/lung-dried.jpg"
+  },
+  {
+   "id": "p48",
+   "cat": "treat",
+   "name": "Медальон мясной сушёный",
+   "price": 280,
+   "unit": "g100",
+   "note": "",
+   "approx": 0,
+   "step": null,
+   "bulk": null,
+   "stock": "ok",
+   "hit": false,
+   "img": "img/medallion.jpg"
+  },
+  {
+   "id": "p49",
+   "cat": "treat",
+   "name": "Нос говяжий сушёный (без шерсти)",
+   "price": 220,
+   "unit": "g100",
+   "note": "",
+   "approx": 0,
+   "step": null,
+   "bulk": null,
+   "stock": "ok",
+   "hit": false,
+   "img": "img/nose-dried.jpg"
+  },
+  {
+   "id": "p50",
+   "cat": "treat",
+   "name": "Нос говяжий сушёный (шерсть)",
+   "price": 160,
+   "unit": "g100",
+   "note": "",
+   "approx": 0,
+   "step": null,
+   "bulk": null,
+   "stock": "ok",
+   "hit": false,
+   "img": "img/nose-dried-fur.jpg"
+  },
+  {
+   "id": "p51",
+   "cat": "treat",
+   "name": "Печень говяжья сушёная",
+   "price": 210,
+   "unit": "g100",
+   "note": "",
+   "approx": 0,
+   "step": null,
+   "bulk": null,
+   "stock": "ok",
+   "hit": false,
+   "img": "img/liver-dried.jpg"
+  },
+  {
+   "id": "p52",
+   "cat": "treat",
+   "name": "Почки говяжьи сушёные",
+   "price": 170,
+   "unit": "g100",
+   "note": "",
+   "approx": 0,
+   "step": null,
+   "bulk": null,
+   "stock": "ok",
+   "hit": false,
+   "img": "img/kidney-dried.jpg"
+  },
+  {
+   "id": "p53",
+   "cat": "treat",
+   "name": "Рубец говяжий сушёный",
+   "price": 170,
+   "unit": "g100",
+   "note": "",
+   "approx": 0,
+   "step": null,
+   "bulk": null,
+   "stock": "ok",
+   "hit": false,
+   "img": "img/tripe-dried.jpg"
+  },
+  {
+   "id": "p54",
+   "cat": "treat",
+   "name": "Трахея говяжья сушёная",
+   "price": 220,
+   "unit": "g100",
+   "note": "",
+   "approx": 0,
+   "step": null,
+   "bulk": null,
+   "stock": "ok",
+   "hit": true,
+   "img": "img/trachea-dried.jpg"
+  },
+  {
+   "id": "p55",
+   "cat": "treat",
+   "name": "Ухо говяжье сушёное без шерсти",
+   "price": 220,
+   "unit": "g100",
+   "note": "",
+   "approx": 0,
+   "step": null,
+   "bulk": null,
+   "stock": "ok",
+   "hit": false,
+   "img": "img/ear-dried.jpg"
+  },
+  {
+   "id": "p56",
+   "cat": "treat",
+   "name": "Ухо говяжье сушёное (шерсть)",
+   "price": 110,
+   "unit": "pcs",
+   "note": "От 2 шт — по 100 ₽",
+   "approx": 0,
+   "step": null,
+   "bulk": {
+    "from": 2,
+    "price": 100
+   },
+   "stock": "ok",
+   "hit": true,
+   "img": "img/ear-dried-fur.jpg"
+  },
+  {
+   "id": "p57",
+   "cat": "supp",
+   "name": "Лёгкое говяжье молотое, банка 100 г",
+   "price": 300,
+   "unit": "pcs",
+   "note": "Витаминная добавка · под заказ 2–3 дня",
+   "approx": 0,
+   "step": null,
+   "bulk": null,
+   "stock": "ok",
+   "hit": false,
+   "img": "img/lung-dried.jpg"
+  },
+  {
+   "id": "p58",
+   "cat": "supp",
+   "name": "Лёгкое говяжье молотое, банка 200 г",
+   "price": 500,
+   "unit": "pcs",
+   "note": "Витаминная добавка · под заказ 2–3 дня",
+   "approx": 0,
+   "step": null,
+   "bulk": null,
+   "stock": "ok",
+   "hit": false,
+   "img": "img/lung-dried.jpg"
+  },
+  {
+   "id": "p59",
+   "cat": "supp",
+   "name": "Печень говяжья молотая, банка 150 г",
+   "price": 500,
+   "unit": "pcs",
+   "note": "Витаминная добавка · под заказ 2–3 дня",
+   "approx": 0,
+   "step": null,
+   "bulk": null,
+   "stock": "ok",
+   "hit": false,
+   "img": "img/liver-dried.jpg"
+  }
+ ],
+ "updated": "2026-11-04T09:47:38.256Z"
+}

@@ -508,25 +508,14 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 <div class="toast" id="toast"></div>
 
 <script>
-/* ===================== ДАННЫЕ (редактируйте здесь) ===================== */
+/* ===================== ДАННЫЕ ===================== */
 // orderEndpoint — приём заказов (order.php, ключи в order-config.php). Пока ключи не заданы или адрес пуст —
 // заказ копируется и отправляется вручную
 const CONTACT = { phone:'+79120453895', vk:'https://vk.me/dogfoodnt', orderEndpoint:'order.php' };
-const FREE_FROM = 1500, DELIVERY_FEE = 100, CUTOFF_HOUR = 11;
-// Прайс из Google Таблицы: ссылки «Опубликовать в интернете → лист → CSV» (см. ПРАЙС-ИНСТРУКЦИЯ.md).
-// Пустая ссылка — используется встроенный прайс ниже.
-const SHEETS = { products:'', mixes:'', schedule:'', holidays:'' };
-// Ниже — встроенный прайс: он показывается, пока таблица не подключена или недоступна
-// Праздничные/нерабочие дни (ГГГГ-ММ-ДД)
-let HOLIDAYS = ['2026-11-04'];
-// График доставки по дням недели (1 = Пн … 5 = Пт)
-let SCHEDULE = {
-  1:['Старатель','Вагонка','Новая Кушва','Валегин Бор'],
-  2:['ГГМ','Старая Гальянка','Голый Камень'],
-  3:[],
-  4:['Вагонка','Новая Кушва','Валегин Бор','Сухоложский посёлок','Верхняя Салда (раздача)'],
-  5:['Центр','Красный Камень','Выя','ГГМ']
-};
+// Цены, наличие, фото, хиты, миксы, график, праздники и настройки доставки хранятся в data.json
+// и меняются в админке (admin.html). Здесь — только значения по умолчанию до загрузки.
+let FREE_FROM = 1500, DELIVERY_FEE = 100, CUTOFF_HOUR = 11;
+let SCHEDULE = {1:[],2:[],3:[],4:[],5:[]}, HOLIDAYS = [], MIXES = [], ITEMS = [], HITS = [];
 const CATS = [
   {id:'all',name:'Всё'},
   {id:'mix',name:'Миксы',cls:'c-beef'},
@@ -538,126 +527,35 @@ const CATS = [
   {id:'supp',name:'Добавки',cls:'c-supp'}
 ];
 // unit: kg (цена за кг) | pcs (за штуку) | g100 (за 100 г) | lot (цена за кг, продаётся целиком ~approx кг)
-let MIXES = [
-  {id:'m1',n:1,name:'Говяжий основной',for:'для всех пород',price:440,pack:'1 кг',parts:[['Говядина гуляш',60],['Рубец говяжий',40]]},
-  {id:'m2',n:2,name:'Говяжий рацион',for:'для всех пород',price:400,pack:'1 кг',parts:[['Обрезь говяжья',50],['Срез сердца',40],['Печень говяжья',10]]},
-  {id:'m3',n:3,name:'Из говяжьих субпродуктов',for:'для всех пород',price:130,pack:'0,5 кг',parts:[['Лёгкое',40],['Вымя',40],['Селезёнка',20]]},
-  {id:'m4',n:4,name:'Диетический из индейки',for:'для чувствительного пищеварения',price:300,pack:'0,5 кг',parts:[['Мясо индейки',40],['Желудок индейки',40],['Печень индейки',20]]},
-  {id:'m5',n:5,name:'Говяжий питательный',for:'для средних и крупных пород',price:370,pack:'1 кг',parts:[['Подъязычный срез',55],['Вымя',30],['Трахея (хрящ)',10],['Почки',5]]},
-  {id:'m6',n:6,name:'Куриный',for:'полноценный рацион, все породы',price:180,pack:'0,5 кг',parts:[['Спинки мясные',55],['Желудок',20],['Сердце',20],['Печень',5]]},
-  {id:'m7',n:7,name:'Утиный',for:'все породы и даже котики',price:300,pack:'0,5 кг',parts:[['Рагу / филе голени',55],['Желудок без кутикулы',35],['Печень утиная',10]]},
-  {id:'m8',n:8,name:'Рыбный день',for:'разнообразие в рационе',price:165,pack:'0,5 кг',parts:[['Хамса',30],['Путассу',30],['Фарш горбуши',30],['Морская капуста',10]]},
-  {id:'m9',n:9,name:'Для щенков и котиков',for:'мелкий помол, для проблемных зубов',price:220,pack:'0,5 кг',isNew:true,parts:[['Шеи утки',40],['Обрезь корпусная',30],['Сердце',10],['Печень',10],['Трахея',10]]}
-];
-let ITEMS = [
-  ['beef','Вымя говяжье',120,'kg'],
-  ['beef','Губы говяжьи (шерсть)',135,'kg'],
-  ['beef','Кость суставная бульонная',110,'kg'],
-  ['beef','Лёгкое говяжье',170,'kg'],
-  ['beef','Лопаточный хрящ говяжий',230,'kg'],
-  ['beef','Мясное основание бычьего корня',320,'kg','Осталось мало'],
-  ['beef','Нос говяжий (шерсть)',150,'kg'],
-  ['beef','Обрезь говяжья корпусная',370,'kg'],
-  ['beef','Обрезь «Наваристая каша» (жир и жилы)',100,'lot','Распил ≈ 5 кг, цена за кг',5],
-  ['beef','Печень говяжья',210,'kg'],
-  ['beef','Подъязычный срез говяжий',320,'kg'],
-  ['beef','Почки говяжьи',170,'kg'],
-  ['beef','Рубец говяжий зелёный, блок',110,'lot','Блок 17–20 кг, цена за кг',18.5],
-  ['beef','Рубец говяжий зелёный, нарезка',160,'kg','Фасовка по 1 кг',null,1],
-  ['beef','Селезёнка говяжья',110,'kg'],
-  ['beef','Семенники бычьи',175,'kg'],
-  ['beef','Сердце говяжье',380,'kg'],
-  ['beef','Спил говяжий (очень мелкий фарш)',160,'kg','Остатки из-под распила'],
-  ['beef','Срез сердца говяжьего (клапан)',190,'kg'],
-  ['beef','Суповой набор говяжий',120,'kg'],
-  ['beef','Трахея говяжья с привязью',200,'kg'],
-  ['beef','Уши говяжьи (шерсть)',110,'kg'],
-  ['beef','Хвост говяжий (пиленый)',300,'kg'],
-  ['turkey','Головы индейки',130,'kg'],
-  ['turkey','Гузка индейки',190,'kg'],
-  ['turkey','Желудок индейки',390,'kg'],
-  ['turkey','Мясо индейки (филе голени и бедра)',430,'kg','С небольшими хрящиками'],
-  ['turkey','Кожа индейки',150,'kg'],
-  ['turkey','Семенники индюка',360,'kg'],
-  ['turkey','Сердце индейки',700,'kg'],
-  ['turkey','Фарш-масса индейки',90,'kg'],
-  ['turkey','Шеи индейки (пиленые)',240,'kg'],
-  ['duck','Головы утки',140,'kg'],
-  ['duck','Желудок утки',450,'kg'],
-  ['duck','Печень утиная',390,'kg'],
-  ['duck','Фарш утиный (батон 0,9 кг)',170,'pcs'],
-  ['duck','Шеи утиные',200,'kg'],
-  ['chicken','Головы кур (бройлер)',110,'kg'],
-  ['chicken','Головы кур с гребнем',80,'kg'],
-  ['chicken','Желудок куриный (бройлер)',250,'kg'],
-  ['chicken','Лапы куриные (бройлер)',130,'kg'],
-  ['chicken','Печень куриная (бройлер)',280,'kg'],
-  ['chicken','Суповой набор куриный (спинки мясные)',150,'kg'],
-  ['chicken','Шея куриная (бройлер)',150,'kg'],
-  ['chicken','Шея куриная',110,'kg'],
-  ['treat','Бычий корень сушёный',280,'g100'],
-  ['treat','Вымя говяжье сушёное',140,'g100'],
-  ['treat','Лёгкое говяжье сушёное',170,'g100'],
-  ['treat','Медальон мясной сушёный',280,'g100'],
-  ['treat','Нос говяжий сушёный (без шерсти)',220,'g100'],
-  ['treat','Нос говяжий сушёный (шерсть)',160,'g100'],
-  ['treat','Печень говяжья сушёная',210,'g100'],
-  ['treat','Почки говяжьи сушёные',170,'g100'],
-  ['treat','Рубец говяжий сушёный',170,'g100'],
-  ['treat','Трахея говяжья сушёная',220,'g100'],
-  ['treat','Ухо говяжье сушёное без шерсти',220,'g100'],
-  ['treat','Ухо говяжье сушёное (шерсть)',110,'pcs','От 2 шт — по 100 ₽',null,null,{from:2,price:100}],
-  ['supp','Лёгкое говяжье молотое, банка 100 г',300,'pcs','Витаминная добавка · под заказ 2–3 дня'],
-  ['supp','Лёгкое говяжье молотое, банка 200 г',500,'pcs','Витаминная добавка · под заказ 2–3 дня'],
-  ['supp','Печень говяжья молотая, банка 150 г',500,'pcs','Витаминная добавка · под заказ 2–3 дня']
-].map((r,i)=>({id:'p'+i,cat:r[0],name:r[1],price:r[2],unit:r[3],note:r[4]==='Осталось мало'?'':r[4]||'',approx:r[5]||0,step:r[6]||null,bulk:r[7]||null,stock:r[4]==='Осталось мало'?'low':'ok'}));
-
-// Фото: файлы в img/ — снимки из раздела «Товары» группы VK; WM — свободные фото с Wikimedia Commons
-const WM = {
-  mince:'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/Hakket-oksekoed.jpg/960px-Hakket-oksekoed.jpg',
-  'turkey-gizzard':'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Gesierdecanarddeslandes.jpg/960px-Gesierdecanarddeslandes.jpg',
-  'duck-gizzard':'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Frozen-fresh_duck_gizzards.jpg/960px-Frozen-fresh_duck_gizzards.jpg',
-  'chicken-gizzard':'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Chicken_gizzards.jpg/960px-Chicken_gizzards.jpg',
-  'duck-mince':'https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/%D0%A4%D0%B0%D1%80%D1%88.jpg/960px-%D0%A4%D0%B0%D1%80%D1%88.jpg',
-  'chicken-feet':'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Processed_Frozen_Chicken_Feet_%26_frozen_chicken_Paws.jpg/960px-Processed_Frozen_Chicken_Feet_%26_frozen_chicken_Paws.jpg',
-  mix8:'https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Anci%C3%B6e_crue_a_l%27agro_-_Liguria.jpg/960px-Anci%C3%B6e_crue_a_l%27agro_-_Liguria.jpg',
-  'chicken-liver':'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Preparing_Chicken_Liver_02.JPG/960px-Preparing_Chicken_Liver_02.JPG'
-};
-const IMG_BY_NAME = {
-  'Вымя говяжье':'udder','Губы говяжьи (шерсть)':'kaltyk','Кость суставная бульонная':'tail','Лёгкое говяжье':'lung',
-  'Лопаточный хрящ говяжий':'trim-kasha','Мясное основание бычьего корня':'pizzle-dried','Нос говяжий (шерсть)':'nose-dried-fur',
-  'Обрезь говяжья корпусная':'kaltyk','Обрезь «Наваристая каша» (жир и жилы)':'trim-kasha','Печень говяжья':'liver',
-  'Подъязычный срез говяжий':'kaltyk','Почки говяжьи':'kidney','Рубец говяжий зелёный, блок':'tripe','Рубец говяжий зелёный, нарезка':'tripe',
-  'Селезёнка говяжья':'liver','Семенники бычьи':'bull-testicles','Сердце говяжье':'beef-heart','Спил говяжий (очень мелкий фарш)':'mince',
-  'Срез сердца говяжьего (клапан)':'beef-heart','Суповой набор говяжий':'tail','Трахея говяжья с привязью':'trachea-dried',
-  'Уши говяжьи (шерсть)':'ear-dried-fur','Хвост говяжий (пиленый)':'tail',
-  'Головы индейки':'duck-heads','Гузка индейки':'turkey-meat','Желудок индейки':'turkey-gizzard','Мясо индейки (филе голени и бедра)':'turkey-meat',
-  'Кожа индейки':'turkey-meat','Семенники индюка':'turkey-testicles','Сердце индейки':'beef-heart','Фарш-масса индейки':'duck-mince','Шеи индейки (пиленые)':'duck-necks',
-  'Головы утки':'duck-heads','Желудок утки':'duck-gizzard','Печень утиная':'chicken-liver','Фарш утиный (батон 0,9 кг)':'duck-mince','Шеи утиные':'duck-necks',
-  'Головы кур (бройлер)':'hen-heads','Головы кур с гребнем':'hen-heads','Желудок куриный (бройлер)':'chicken-gizzard','Лапы куриные (бройлер)':'chicken-feet',
-  'Печень куриная (бройлер)':'chicken-liver','Суповой набор куриный (спинки мясные)':'mix6','Шея куриная (бройлер)':'duck-necks','Шея куриная':'duck-necks',
-  'Бычий корень сушёный':'pizzle-dried','Вымя говяжье сушёное':'udder-dried','Лёгкое говяжье сушёное':'lung-dried','Медальон мясной сушёный':'medallion',
-  'Нос говяжий сушёный (без шерсти)':'nose-dried','Нос говяжий сушёный (шерсть)':'nose-dried-fur','Печень говяжья сушёная':'liver-dried',
-  'Почки говяжьи сушёные':'kidney-dried','Рубец говяжий сушёный':'tripe-dried','Трахея говяжья сушёная':'trachea-dried',
-  'Ухо говяжье сушёное без шерсти':'ear-dried','Ухо говяжье сушёное (шерсть)':'ear-dried-fur',
-  'Лёгкое говяжье молотое, банка 100 г':'lung-dried','Лёгкое говяжье молотое, банка 200 г':'lung-dried','Печень говяжья молотая, банка 150 г':'liver-dried'
-};
-const MIX_IMG = {1:'mix1',2:'mix2',3:'mix3',4:'mix4',5:'mix5',6:'mix6',7:'duck-gizzard',8:'mix8',9:'mince'};
-// фото: полная ссылка, ключ из WM, имя файла в img/ (с расширением или без)
-const imgSrc = key=>/^https?:\/\//.test(key) ? key : WM[key] || (/\.\w{3,4}$/.test(key) ? `img/${key}` : `img/${key}.jpg`);
-ITEMS.forEach(p=>p.img=imgSrc(IMG_BY_NAME[p.name]||'tripe'));
 
 // каталог = миксы (как товары по штуке) + остальные позиции
 let PRODUCTS = [], BY_ID = {}, ALL_AREAS = [];
 function buildCatalog(){
   PRODUCTS = [
-    ...MIXES.map(m=>({id:m.id,cat:'mix',name:`Микс №${m.n} «${m.name}»`,price:m.price,unit:'pcs',note:`Контейнер ${m.pack}`,img:m.img||imgSrc(MIX_IMG[m.n]||'tripe'),stock:m.stock||'ok',hit:m.hit})),
+    ...MIXES.map(m=>({id:m.id,cat:'mix',name:`Микс №${m.n} «${m.name}»`,price:m.price,unit:'pcs',note:`Контейнер ${m.pack}`,img:m.img||'img/tripe.jpg',stock:m.stock||'ok',hit:m.hit})),
     ...ITEMS
   ];
   BY_ID = Object.fromEntries(PRODUCTS.map(p=>[p.id,p]));
   ALL_AREAS = [...new Set(Object.values(SCHEDULE).flat())].sort((a,b)=>a.localeCompare(b,'ru'));
 }
-buildCatalog();
+const numOr = (v,d)=>{const n=Number(v);return Number.isFinite(n)&&n>=0?n:d};
+function applyData(d){
+  const s=d.settings||{};
+  FREE_FROM=numOr(s.freeFrom,1500); DELIVERY_FEE=numOr(s.deliveryFee,100); CUTOFF_HOUR=numOr(s.cutoffHour,11);
+  SCHEDULE={1:[],2:[],3:[],4:[],5:[]};
+  for(const k of [1,2,3,4,5]) SCHEDULE[k]=(d.schedule?.[k]||[]).map(String).filter(Boolean);
+  HOLIDAYS=(d.holidays||[]).filter(x=>/^\d{4}-\d{2}-\d{2}$/.test(x));
+  MIXES=(d.mixes||[]).map(m=>({...m,price:numOr(m.price,0),parts:(m.parts||[]).map(p=>[String(p.name),numOr(p.pct,0)])}));
+  ITEMS=(d.items||[]).filter(p=>p&&p.name&&CATS.some(c=>c.id===p.cat)).map(p=>({...p,price:numOr(p.price,0),approx:numOr(p.approx,0),step:Number(p.step)>0?Number(p.step):null,
+    bulk:p.bulk&&Number(p.bulk.from)>0&&Number(p.bulk.price)>0?{from:Number(p.bulk.from),price:Number(p.bulk.price)}:null}));
+  buildCatalog();
+  HITS=PRODUCTS.filter(p=>p.hit).map(p=>p.id);
+}
+async function loadData(){
+  const r=await fetch('data.json?v='+Date.now(),{cache:'no-store'});
+  if(!r.ok) throw new Error('data.json → '+r.status);
+  applyData(await r.json());
+}
 
 // Отзывы из темы VK https://vk.ru/topic-204176152_48130390 (имя сокращено, фото из вложений к отзыву)
 const REVIEWS = [
@@ -675,89 +573,7 @@ const REVIEWS = [
   {name:'Freie Seele',date:'27 февраля 2022',text:'Отзыв про сушёное лёгкое: у собакена просто «срывает крышу», когда его видит. Начинает выпрашивать, очень радуется — готов съесть вместе с пальцами) Хотя обычно всё спокойно берёт из рук'}
 ];
 const REVIEWS_SHOWN = 6;
-
-// Хиты для карусели (id из каталога или имя товара) — меняйте под реальные продажи
-let HITS = ['Рубец говяжий зелёный, нарезка','m1','Подъязычный срез говяжий','m6','Сердце говяжье','Печень говяжья','m2','Бычий корень сушёный','Ухо говяжье сушёное (шерсть)','Шеи утиные','Мясо индейки (филе голени и бедра)','Трахея говяжья сушёная'];
 const MIX_COLORS = ['#A3302A','#E8A33D','#3F6B3A','#2F6B6B','#8A5A9E'];
-
-/* ===================== ПРАЙС ИЗ ТАБЛИЦЫ ===================== */
-// CSV → массив строк; поддерживает кавычки, запятые и переносы внутри ячеек
-function parseCSV(text){
-  const rows=[]; let row=[], cell='', q=false;
-  text=text.replace(/^﻿/,'');
-  for(let i=0;i<text.length;i++){
-    const c=text[i];
-    if(q){ if(c==='"'){ if(text[i+1]==='"'){cell+='"';i++} else q=false } else cell+=c; }
-    else if(c==='"') q=true;
-    else if(c===','){ row.push(cell); cell=''; }
-    else if(c==='\n'||c==='\r'){ if(c==='\r'&&text[i+1]==='\n') i++; row.push(cell); rows.push(row); row=[]; cell=''; }
-    else cell+=c;
-  }
-  if(cell!==''||row.length){ row.push(cell); rows.push(row); }
-  return rows.filter(r=>r.some(c=>c.trim()!==''));
-}
-// строки → объекты по заголовкам (заголовки сравниваются без регистра и лишних пробелов)
-function sheetObjects(rows){
-  const head=(rows[0]||[]).map(h=>h.trim().toLowerCase());
-  return rows.slice(1).map(r=>Object.fromEntries(head.map((h,i)=>[h,(r[i]||'').trim()])));
-}
-const col = (o,...names)=>{for(const n of names){const v=o[n.toLowerCase()];if(v!==undefined&&v!=='')return v}return ''};
-const yes = v=>/^(да|yes|\+|1|x|х)$/i.test(String(v).trim());
-const num = v=>{const n=Number(String(v).replace(/\s|₽|р\.?/gi,'').replace(',','.'));return Number.isFinite(n)?n:NaN};
-const stockOf = v=>{v=String(v).trim().toLowerCase();return v==='нет'?'out':v==='мало'?'low':'ok'};
-const UNITS = {'кг':'kg','шт':'pcs','100 г':'g100','100г':'g100','блок':'lot'};
-const WEEKDAYS = {'пн':1,'понедельник':1,'вт':2,'вторник':2,'ср':3,'среда':3,'чт':4,'четверг':4,'пт':5,'пятница':5};
-
-function applySheets(d){
-  const warn=[];
-  if(d.mixes){
-    MIXES=d.mixes.map((r,i)=>{
-      const n=num(col(r,'№','номер')), price=num(col(r,'цена, ₽','цена'));
-      const name=col(r,'название');
-      if(!name||!Number.isFinite(price)){warn.push(`Миксы, строка ${i+2}: нет названия или цены`);return null}
-      // «Говядина гуляш 60; Рубец говяжий 40»
-      const parts=col(r,'состав').split(/[;\n]/).map(s=>s.trim()).filter(Boolean).map(s=>{
-        const m=s.match(/^(.*?)[\s—–-]*(\d+(?:[.,]\d+)?)\s*%?$/); return m?[m[1].trim(),num(m[2])]:[s,0];
-      });
-      const photo=col(r,'фото');
-      return {id:col(r,'код')||('m'+(Number.isFinite(n)?n:i+1)),n:Number.isFinite(n)?n:i+1,name,for:col(r,'для кого'),price,pack:col(r,'фасовка')||'1 кг',
-        parts,isNew:yes(col(r,'новинка')),stock:stockOf(col(r,'наличие')),hit:yes(col(r,'хит')),img:photo?imgSrc(photo):''};
-    }).filter(Boolean);
-  }
-  if(d.products){
-    const catByName=Object.fromEntries(CATS.map(c=>[c.name.toLowerCase(),c.id]));
-    ITEMS=d.products.map((r,i)=>{
-      const name=col(r,'название'), price=num(col(r,'цена, ₽','цена'));
-      const cat=catByName[col(r,'категория').toLowerCase()], unit=UNITS[col(r,'за что цена','единица').toLowerCase()];
-      if(!name||!Number.isFinite(price)||!cat||!unit){warn.push(`Товары, строка ${i+2}: проверьте название, цену, категорию и «за что цена»`);return null}
-      const from=num(col(r,'скидка от, шт')), bprice=num(col(r,'цена со скидкой'));
-      return {id:col(r,'код')||('r'+i),cat,name,price,unit,note:col(r,'примечание'),
-        approx:num(col(r,'вес блока, кг'))||0,step:num(col(r,'шаг'))||null,
-        bulk:Number.isFinite(from)&&Number.isFinite(bprice)?{from,price:bprice}:null,
-        stock:stockOf(col(r,'наличие')),hit:yes(col(r,'хит')),img:imgSrc(col(r,'фото')||IMG_BY_NAME[name]||'tripe')};
-    }).filter(Boolean);
-  }
-  if(d.schedule){
-    SCHEDULE={1:[],2:[],3:[],4:[],5:[]};
-    d.schedule.forEach(r=>{const day=WEEKDAYS[col(r,'день').toLowerCase()]; if(day) SCHEDULE[day]=col(r,'районы').split(/[,;\n]/).map(s=>s.trim()).filter(Boolean)});
-  }
-  if(d.holidays){
-    HOLIDAYS=d.holidays.map(r=>{const v=col(r,'дата');let m=v.match(/^(\d{1,2})\.(\d{1,2})\.(\d{4})$/);
-      if(m) return `${m[3]}-${m[2].padStart(2,'0')}-${m[1].padStart(2,'0')}`; return /^\d{4}-\d{2}-\d{2}$/.test(v)?v:null}).filter(Boolean);
-  }
-  buildCatalog();
-  const flagged=PRODUCTS.filter(p=>p.hit).map(p=>p.id);
-  if(flagged.length) HITS=flagged;
-  if(warn.length) console.warn('Прайс: пропущены строки\n'+warn.join('\n'));
-}
-async function loadSheets(){
-  const entries=Object.entries(SHEETS).filter(([,u])=>u);
-  const get=async u=>{const r=await fetch(u,{cache:'no-store'}); if(!r.ok) throw new Error(u+' → '+r.status); return sheetObjects(parseCSV(await r.text()))};
-  const timeout=new Promise((_,rej)=>setTimeout(()=>rej(new Error('таймаут 8 с')),8000));
-  const data={};
-  await Promise.race([Promise.all(entries.map(async([k,u])=>{data[k]=await get(u)})),timeout]);
-  applySheets(data);
-}
 
 /* ===================== УТИЛИТЫ ===================== */
 const $ = s=>document.querySelector(s);
@@ -1121,10 +937,9 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')setMenu(false)});
 renderTabs();renderReviews();
 setInterval(renderCutoff,60000);
 // сначала прайс из таблицы (если подключена), затем всё, что от него зависит; при ошибке — встроенный прайс
-const sheetsOn=Object.values(SHEETS).some(Boolean);
-if(sheetsOn) ['#grid','#mixGrid'].forEach(s=>$(s).innerHTML='<div class="empty">Загружаем актуальный прайс…</div>');
-(sheetsOn?loadSheets():Promise.resolve()).catch(e=>console.warn('Прайс из таблицы не загрузился, показан встроенный:',e.message))
-  .finally(()=>{dataReady=true;pruneCart();$('#hitTrack').innerHTML='';renderDays();renderCutoff();renderAll();dispatchEvent(new Event('resize'));syncDots()});
+['#grid','#mixGrid'].forEach(s=>$(s).innerHTML='<div class="empty">Загружаем каталог…</div>');
+loadData().then(()=>{dataReady=true;pruneCart();$('#hitTrack').innerHTML='';renderDays();renderCutoff();renderAll();dispatchEvent(new Event('resize'));syncDots()})
+  .catch(e=>{console.error(e);['#grid','#mixGrid'].forEach(s=>$(s).innerHTML='<div class="empty">Не удалось загрузить каталог. Обновите страницу или напишите нам.</div>')});
 // автопрокрутка карусели; пауза при наведении, касании и если пользователь просит меньше анимации
 (()=>{
   const wrap=$('#hits'), t=$('#hitTrack'); let paused=matchMedia('(prefers-reduced-motion: reduce)').matches;
