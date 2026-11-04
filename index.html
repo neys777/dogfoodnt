@@ -1,0 +1,1136 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Дог Фуд НТ — мясо для собак</title>
+<meta name="description" content="Натуральное мясо, субпродукты, миксы и сушёные лакомства для собак с доставкой по Нижнему Тагилу. Ветконтроль, оплата по факту, бесплатная доставка от 1500 ₽.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FBF6EE; --paper:#FFFFFF; --ink:#2A1E18; --muted:#7A6A5F; --line:#EADFD0;
+  --red:#A3302A; --red-d:#7E211C; --red-soft:#F6E2DC;
+  --green:#3F6B3A; --green-soft:#E3EEDC; --gold:#E8A33D; --gold-soft:#FBEBD1;
+  --radius:18px; --shadow:0 10px 30px -12px rgba(60,30,15,.18);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Manrope,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:Unbounded,Manrope,sans-serif;line-height:1.15;margin:0}
+a{color:inherit}
+button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+input,select,textarea{font:inherit;color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+/* status strip */
+.strip{background:var(--ink);color:#F4E9DA;font-size:14px}
+.strip .wrap{display:flex;gap:16px;align-items:center;justify-content:space-between;padding-top:8px;padding-bottom:8px;flex-wrap:wrap}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:8px;background:#6BCB6B;box-shadow:0 0 0 4px rgba(107,203,107,.2)}
+.dot.off{background:var(--gold);box-shadow:0 0 0 4px rgba(232,163,61,.2)}
+.strip a{text-decoration:none;font-weight:700}
+
+/* header */
+header.top{position:sticky;top:0;z-index:40;background:rgba(251,246,238,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+header.top .wrap{display:flex;align-items:center;gap:24px;height:72px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo b{font-family:Unbounded;font-size:17px;letter-spacing:.02em;display:block;line-height:1}
+.logo small{display:block;color:var(--muted);font-size:12px;margin-top:3px}
+nav.menu{display:flex;gap:22px;margin-left:auto}
+nav.menu a{text-decoration:none;font-weight:600;color:var(--muted)}
+nav.menu a:hover{color:var(--red)}
+.burger,.menu-extra{display:none}
+.cartbtn{display:flex;align-items:center;gap:10px;background:var(--red);color:#fff;padding:11px 16px;border-radius:999px;font-weight:700;transition:transform .15s}
+.cartbtn:hover{background:var(--red-d)}
+.cartbtn .n{background:#fff;color:var(--red);border-radius:999px;min-width:22px;height:22px;display:grid;place-items:center;font-size:12px;padding:0 6px}
+.bump{animation:bump .35s}
+@keyframes bump{50%{transform:scale(1.08)}}
+
+/* hero */
+.hero{padding:56px 0 40px}
+.hero .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center}
+.eyebrow{display:inline-flex;gap:8px;align-items:center;background:var(--green-soft);color:var(--green);font-weight:700;font-size:13px;padding:6px 12px;border-radius:999px}
+.hero h1{font-size:clamp(32px,5vw,54px);margin:18px 0 16px;letter-spacing:-.01em}
+.hero h1 em{font-style:normal;color:var(--red)}
+.hero p.lead{font-size:18px;color:var(--muted);max-width:540px;margin:0 0 26px}
+.btns{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 22px;border-radius:14px;font-weight:700;text-decoration:none;transition:.15s}
+.btn.primary{background:var(--red);color:#fff}
+.btn.primary:hover{background:var(--red-d)}
+.btn.ghost{background:var(--paper);border:1px solid var(--line)}
+.btn.ghost:hover{border-color:var(--ink)}
+.facts{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:30px;max-width:560px}
+.fact{display:flex;gap:10px;align-items:flex-start;font-size:14px;font-weight:600}
+.fact i{flex:none;width:30px;height:30px;border-radius:9px;display:grid;place-items:center;background:var(--paper);border:1px solid var(--line);font-style:normal}
+.hero-photo{position:relative;margin:0;padding:0 28px 24px 0;max-width:470px;justify-self:end;width:100%}
+.hero-photo::before{content:"";position:absolute;right:0;bottom:0;width:78%;height:82%;border-radius:200px 200px 32px 32px;background:var(--red);z-index:0}
+.hero-photo .frame{position:relative;z-index:1;aspect-ratio:4/4.7;border-radius:220px 220px 32px 32px;overflow:hidden;background:var(--gold-soft);box-shadow:var(--shadow)}
+.hero-photo .frame img{width:100%;height:100%;object-fit:cover;object-position:42% 40%;display:block}
+.float{position:absolute;z-index:2;background:var(--paper);border-radius:16px;padding:10px 14px;box-shadow:0 12px 30px -10px rgba(60,30,15,.35);display:flex;gap:10px;align-items:center;font-size:13px;font-weight:700;line-height:1.3;animation:floaty 5s ease-in-out infinite}
+.float i{font-style:normal;width:30px;height:30px;border-radius:9px;display:grid;place-items:center;background:var(--green-soft);color:var(--green);flex:none}
+.float.f1{left:-28px;top:22%;flex-direction:column;align-items:flex-start;gap:0;background:var(--ink);color:#fff}
+.float.f1 b{font-family:Unbounded;font-size:20px;color:var(--gold)}
+.float.f1 span{font-weight:600;color:#E8DCCB}
+.float.f2{right:0;top:12%;animation-delay:-1.6s}
+.float.f3{left:-12px;bottom:8%;animation-delay:-3.2s}
+.float.f3 i{background:var(--gold-soft);color:#94600F}
+@keyframes floaty{50%{transform:translateY(-6px)}}
+.logo img{height:58px;width:auto;display:block}
+.logo small{font-size:12px;line-height:1.3;color:var(--muted);font-weight:600;margin:0;padding-left:12px;border-left:1px solid var(--line)}
+
+/* sections */
+section{padding:56px 0}
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;margin-bottom:26px;flex-wrap:wrap}
+.sec-head h2{font-size:clamp(24px,3.4vw,36px)}
+.sec-head p{margin:8px 0 0;color:var(--muted);max-width:560px}
+
+/* mixes */
+.mixes{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:16px}
+.mix{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:20px;display:flex;flex-direction:column;gap:12px;transition:.2s}
+.mix:hover{box-shadow:var(--shadow);transform:translateY(-2px)}
+.mix .num{font-family:Unbounded;font-size:12px;color:var(--red);font-weight:700;letter-spacing:.05em}
+.mix h3{font-size:17px}
+.mix .for{font-size:13px;color:var(--muted);margin-top:-6px}
+.bar{display:flex;height:10px;border-radius:99px;overflow:hidden;background:var(--line)}
+.bar span{display:block;height:100%}
+.comp{display:flex;flex-direction:column;align-items:center;gap:16px;padding:6px 0 4px}
+.donut{flex:none;width:168px;height:168px;filter:drop-shadow(0 8px 14px rgba(60,30,15,.12))}
+.donut circle{transition:stroke-width .2s}
+.donut circle:hover{stroke-width:17}
+.comp .legend{width:100%}
+.donut circle{fill:none;stroke-width:14}
+.donut text{font-family:Unbounded;font-weight:700;fill:var(--ink)}
+.comp .legend{flex:1;min-width:0}
+.legend{list-style:none;margin:0;padding:0;font-size:13.5px;display:grid;gap:4px}
+.legend li{display:flex;align-items:center;gap:8px}
+.legend li b{margin-left:auto;font-weight:700}
+.legend i{width:10px;height:10px;border-radius:3px;flex:none}
+.badge{display:inline-block;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;padding:3px 8px;border-radius:6px;background:var(--gold-soft);color:#94600F}
+.badge.green{background:var(--green-soft);color:var(--green)}
+.mix .foot{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:10px;padding-top:6px}
+.price{font-family:Unbounded;font-weight:700;font-size:20px}
+.price small{font-family:Manrope;font-size:13px;color:var(--muted);font-weight:600}
+
+/* catalog */
+.tools{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:18px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap}
+.tab{padding:9px 15px;border-radius:999px;background:var(--paper);border:1px solid var(--line);font-weight:700;font-size:14px}
+.tab[aria-pressed=true]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.search{margin-left:auto;position:relative;flex:1 1 220px;max-width:320px}
+.search input{width:100%;padding:11px 14px 11px 38px;border-radius:12px;border:1px solid var(--line);background:var(--paper)}
+.search input:focus{outline:2px solid var(--red);outline-offset:1px}
+.search svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.item{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:10px;position:relative}
+.item .cat{font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase}
+.item h4{margin:0;font-size:15.5px;line-height:1.35}
+.item .note{font-size:12.5px;color:var(--muted);margin-top:-4px}
+.item .foot{display:flex;align-items:center;justify-content:space-between;margin-top:auto;gap:8px}
+.item .price{font-size:17px}
+.add{background:var(--red-soft);color:var(--red);font-weight:800;padding:9px 14px;border-radius:11px;white-space:nowrap}
+.add:hover{background:var(--red);color:#fff}
+.step{display:flex;align-items:center;background:var(--ink);color:#fff;border-radius:11px;overflow:hidden}
+.step button{width:34px;height:36px;font-size:18px;font-weight:700}
+.step button:hover{background:rgba(255,255,255,.12)}
+.step span{min-width:64px;text-align:center;font-weight:700;font-size:14px}
+.empty{padding:40px;text-align:center;color:var(--muted);grid-column:1/-1}
+.c-beef{color:var(--red)} .c-turkey{color:#9A6A1F} .c-duck{color:#2F6B6B} .c-chicken{color:#B0702A} .c-treat{color:var(--green)} .c-supp{color:#6A4A8C}
+
+/* photos */
+.ph{position:relative;overflow:hidden;border-radius:12px;background:var(--line);aspect-ratio:4/3}
+.ph img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}
+.item:hover .ph img,.mix:hover .ph img,.hit:hover .ph img{transform:scale(1.04)}
+.item{padding:10px 10px 14px}
+.item > :not(.ph){margin-left:6px;margin-right:6px}
+
+/* hits carousel */
+.carousel{position:relative}
+.arrow{position:absolute;z-index:3;top:var(--arrow-top,40%);transform:translateY(-50%);width:50px;height:50px;border-radius:50%;background:var(--paper);border:1px solid var(--line);box-shadow:0 8px 22px -8px rgba(60,30,15,.4);display:grid;place-items:center;transition:background .15s,color .15s,transform .15s}
+.arrow.prev{left:-22px} .arrow.next{right:-22px}
+.arrow:hover{background:var(--red);color:#fff;border-color:var(--red);transform:translateY(-50%) scale(1.06)}
+@media (max-width:1240px){.arrow.prev{left:6px}.arrow.next{right:6px}}
+.track{display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 48px)/4);gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding:4px 2px 12px;scrollbar-width:none}
+.track::-webkit-scrollbar{display:none}
+.hit{scroll-snap-align:start;background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .2s}
+.hit:hover{box-shadow:var(--shadow)}
+.hit .ph{border-radius:0;aspect-ratio:1/1}
+.hit .hb{padding:14px 16px 16px;display:flex;flex-direction:column;gap:6px;flex:1}
+.hit h4{margin:0;font-size:15.5px;line-height:1.35}
+.hit .note{font-size:12.5px;color:var(--muted)}
+.hit .foot{margin-top:auto;padding-top:8px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.hit .price{font-size:18px}
+.badge.hot{position:absolute;left:12px;top:12px;background:var(--red);color:#fff}
+.ph .badge.low{position:absolute;left:10px;top:10px}
+.badge.low{background:var(--gold);color:#4A2E05}
+.out-tag{font-size:13px;font-weight:800;color:var(--muted);background:var(--bg);border:1px dashed var(--line);padding:8px 12px;border-radius:11px;white-space:nowrap}
+.is-out .ph img,.is-out .donut{filter:grayscale(1);opacity:.55}
+.is-out h4,.is-out h3,.is-out .price{color:var(--muted)}
+.dots{display:flex;justify-content:center;gap:6px;margin-top:6px}
+.dots button{width:8px;height:8px;border-radius:99px;background:var(--line);transition:.2s;padding:0}
+.dots button[aria-current=true]{width:24px;background:var(--red)}
+@media (max-width:1000px){.track{grid-auto-columns:calc((100% - 32px)/3)}}
+@media (max-width:760px){.track{grid-auto-columns:calc((100% - 16px)/2)}}
+@media (max-width:520px){.track{grid-auto-columns:78%}.arrow{width:40px;height:40px}}
+
+/* reviews */
+.reviews{columns:3 300px;column-gap:16px}
+.rv{break-inside:avoid;margin:0 0 16px;background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column}
+.rv-ph{display:block;width:100%;padding:0;position:relative;overflow:hidden;cursor:zoom-in}
+.rv-ph img{width:100%;max-height:340px;object-fit:cover;display:block;transition:transform .4s}
+.rv-ph:hover img{transform:scale(1.03)}
+.rv blockquote{margin:0;padding:18px 20px 12px;font-size:15px;line-height:1.55;position:relative}
+.rv blockquote::before{content:"“";font-family:Unbounded;font-size:44px;line-height:1;color:var(--red);opacity:.25;position:absolute;left:12px;top:4px}
+.rv blockquote{text-indent:18px}
+.rv figcaption{display:flex;align-items:center;gap:10px;padding:0 20px 18px}
+.rv .av{width:36px;height:36px;border-radius:50%;background:var(--red-soft);color:var(--red);display:grid;place-items:center;font-weight:800;flex:none}
+.rv figcaption b{display:block;font-size:14px}
+.rv figcaption small{color:var(--muted);font-size:12.5px}
+.rv-more-wrap{display:none;text-align:center}
+@media (max-width:760px){
+  #reviews:not(.open) .rv.extra{display:none}
+  #reviews:not(.open) .rv-more-wrap:not([hidden]){display:block}
+}
+.lightbox{border:0;padding:0;background:transparent;max-width:min(92vw,900px);max-height:90vh;overflow:visible}
+.lightbox::backdrop{background:rgba(30,18,12,.75)}
+.lightbox img{display:block;max-width:100%;max-height:90vh;border-radius:16px}
+.lightbox .x{position:absolute;top:-14px;right:-14px;z-index:1}
+
+/* delivery */
+.deliv{display:grid;grid-template-columns:1.2fr .8fr;gap:16px}
+.days{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+.day{display:grid;grid-template-columns:150px 1fr;gap:16px;padding:16px 20px;border-top:1px solid var(--line)}
+.day:first-child{border-top:0}
+.day b{font-family:Unbounded;font-size:14px}
+.day.today{background:var(--gold-soft)}
+.day.off .areas{color:var(--muted);font-style:italic}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{background:var(--bg);border:1px solid var(--line);padding:3px 10px;border-radius:999px;font-size:13.5px;font-weight:600}
+.chip.hl{background:var(--green-soft);border-color:#C9DDBF;color:var(--green)}
+.info-stack{display:grid;gap:16px}
+.info{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:20px}
+.info h3{font-size:16px;margin-bottom:8px}
+.info p{margin:0;color:var(--muted);font-size:14.5px}
+.info.dark{background:var(--ink);color:#F4E9DA;border-color:var(--ink)}
+.info.dark p{color:#CDBFAE}
+.big{font-family:Unbounded;font-size:28px;font-weight:700;color:var(--gold)}
+
+/* faq */
+.faq{display:grid;gap:10px;max-width:860px}
+details{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:0 20px}
+summary{list-style:none;cursor:pointer;padding:16px 0;font-weight:700;display:flex;justify-content:space-between;gap:16px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-size:22px;line-height:1;color:var(--red);transition:.2s}
+details[open] summary::after{transform:rotate(45deg)}
+details p{margin:0 0 16px;color:var(--muted)}
+
+/* contacts */
+.contacts{display:grid;grid-template-columns:.9fr 1.1fr;gap:16px}
+.map{border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);min-height:320px;background:var(--line)}
+.map iframe{width:100%;height:100%;min-height:320px;border:0;display:block}
+.clist{display:grid;gap:12px}
+.crow{display:flex;gap:14px;align-items:center;background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:14px 16px;text-decoration:none}
+.crow:hover{border-color:var(--ink)}
+.crow i{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;background:var(--red-soft);color:var(--red);font-style:normal;flex:none}
+.crow small{display:block;color:var(--muted);font-size:13px}
+.crow b{font-size:16px}
+
+footer{border-top:1px solid var(--line);padding:28px 0 100px;color:var(--muted);font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+/* drawer */
+.scrim{position:fixed;inset:0;background:rgba(30,18,12,.45);opacity:0;pointer-events:none;transition:.25s;z-index:60}
+.scrim.on{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;height:100%;width:min(460px,100%);background:var(--bg);z-index:70;transform:translateX(100%);transition:transform .3s cubic-bezier(.2,.8,.2,1);display:flex;flex-direction:column}
+.drawer.on{transform:none}
+.dh{display:flex;justify-content:space-between;align-items:center;padding:18px 20px;border-bottom:1px solid var(--line)}
+.dh h3{font-size:18px}
+.x{width:38px;height:38px;border-radius:10px;background:var(--paper);border:1px solid var(--line);font-size:20px}
+.db{flex:1;overflow:auto;padding:16px 20px}
+.df{padding:16px 20px;border-top:1px solid var(--line);background:var(--paper)}
+.line{display:grid;grid-template-columns:1fr auto;gap:6px 12px;padding:12px 0;border-bottom:1px dashed var(--line)}
+.line .nm{font-weight:700;font-size:14.5px}
+.line .sub{font-size:12.5px;color:var(--muted)}
+.line .sum{font-weight:800;text-align:right}
+.line .step{background:var(--paper);color:var(--ink);border:1px solid var(--line)}
+.line .step button:hover{background:var(--bg)}
+.rm{font-size:12.5px;color:var(--muted);text-decoration:underline;justify-self:end}
+.progress{background:var(--green-soft);border-radius:12px;padding:12px 14px;font-size:13.5px;font-weight:600;color:var(--green);margin-bottom:14px}
+.progress .bar{margin-top:8px;height:6px;background:#fff}
+.progress .bar span{background:var(--green)}
+.tot{display:flex;justify-content:space-between;font-size:14.5px;margin:4px 0}
+.tot.big2{font-family:Unbounded;font-size:20px;margin-top:8px}
+.hint{font-size:12.5px;color:var(--muted);margin:8px 0 12px}
+.form{display:grid;gap:12px;margin-top:6px}
+.form label{display:grid;gap:5px;font-size:13px;font-weight:700}
+.form input,.form select,.form textarea{padding:11px 12px;border-radius:11px;border:1px solid var(--line);background:var(--paper);font-weight:500;font-size:15px}
+.form input:focus,.form select:focus,.form textarea:focus{outline:2px solid var(--red);outline-offset:0}
+.seg{display:grid;grid-template-columns:1fr 1fr;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:4px}
+.seg button{padding:9px;border-radius:9px;font-weight:700;font-size:14px}
+.seg button[aria-pressed=true]{background:var(--ink);color:#fff}
+.dayopts{display:flex;flex-wrap:wrap;gap:6px}
+.dayopts button{padding:8px 12px;border-radius:10px;border:1px solid var(--line);background:var(--paper);font-weight:700;font-size:13.5px}
+.dayopts button[aria-pressed=true]{background:var(--green);border-color:var(--green);color:#fff}
+.full{width:100%;justify-content:center}
+.preview{white-space:pre-wrap;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:12px;font-size:13px;max-height:220px;overflow:auto}
+.ok{background:var(--green-soft);color:var(--green);border-radius:12px;padding:12px;font-weight:700;font-size:14px}
+.err{color:var(--red);font-size:13px;font-weight:700}
+
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.err-box{background:var(--red-soft);color:var(--red-d);border-radius:12px;padding:12px 14px;font-weight:700;font-size:14px;margin-bottom:14px}
+.done{text-align:center;padding:30px 6px}
+.done-ic{width:72px;height:72px;border-radius:50%;background:var(--green-soft);color:var(--green);display:grid;place-items:center;font-size:36px;font-weight:800;margin:0 auto 16px}
+.done h3{font-size:19px;margin-bottom:10px}
+.done p{color:var(--muted);margin:0 0 10px}
+.btn[disabled]{opacity:.6;cursor:default}
+.mbar{display:none}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,40px);opacity:0;background:var(--ink);color:#fff;padding:12px 18px;border-radius:12px;font-weight:700;font-size:14px;z-index:90;transition:.25s;pointer-events:none}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+
+@media (max-width:900px){
+  .cartbtn{margin-left:auto}
+  /* мобильное меню: выпадает под шапкой по кнопке-бургеру */
+  .burger{display:grid;place-content:center;gap:5px;width:46px;height:46px;border-radius:14px;background:var(--paper);border:1px solid var(--line);flex:none}
+  .burger span{display:block;width:20px;height:2px;border-radius:2px;background:var(--ink);transition:transform .25s,opacity .2s}
+  header.top.open .burger span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  header.top.open .burger span:nth-child(2){opacity:0}
+  header.top.open .burger span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+  nav.menu{position:absolute;left:0;right:0;top:100%;margin:0;flex-direction:column;gap:0;padding:6px 16px 18px;background:var(--bg);border-bottom:1px solid var(--line);box-shadow:0 18px 30px -18px rgba(60,30,15,.35);
+    visibility:hidden;opacity:0;transform:translateY(-8px);transition:opacity .2s,transform .2s,visibility .2s;max-height:calc(100vh - 110px);overflow:auto}
+  header.top.open nav.menu{visibility:visible;opacity:1;transform:none}
+  nav.menu > a{padding:14px 4px;border-bottom:1px solid var(--line);font-size:17px;color:var(--ink)}
+  .menu-extra{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+  .menu-extra .btn{justify-content:center;padding:12px}
+  header.top .wrap{gap:12px}
+  .hero .wrap,.deliv,.contacts{grid-template-columns:1fr}
+  .hero{padding-top:32px}
+  .hero-photo{justify-self:center;max-width:400px;padding-right:18px;order:-1}
+  .hero .wrap{gap:24px}
+  .float.f1{left:0} .float.f3{left:0}
+  .cartbtn .lbl{display:none}
+  .mbar{display:flex;position:fixed;left:12px;right:12px;bottom:12px;z-index:50;background:var(--red);color:#fff;border-radius:16px;padding:14px 18px;justify-content:space-between;align-items:center;font-weight:800;box-shadow:var(--shadow)}
+  .mbar[hidden]{display:none}
+  .day{grid-template-columns:1fr;gap:8px}
+}
+@media (max-width:520px){
+  .wrap{padding:0 16px}
+  .facts{grid-template-columns:1fr}
+  .search{max-width:none;margin-left:0}
+  .strip .wrap{font-size:13px}
+  .logo small{display:none}
+  .hero-photo{max-width:280px}
+  .hero-photo .frame{aspect-ratio:1/1}
+  .float{font-size:12px;padding:8px 10px}
+  .float.f1 b{font-size:16px}
+  .float.f1{top:auto;bottom:6px;left:-8px}
+  .float.f2,.float.f3{display:none}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<div class="strip"><div class="wrap">
+  <span id="cutoff"><span class="dot"></span>Заказы на текущий день принимаем до 11:00</span>
+  <span>Доставка бесплатно от 1500 ₽ · <a href="tel:+79120453895">+7 (912) 045-38-95</a></span>
+</div></div>
+
+<header class="top"><div class="wrap">
+  <a class="logo" href="#" aria-label="Дог Фуд НТ — на главную">
+    <img src="img/logo-mark.png" alt="Дог Фуд НТ" width="68" height="61">
+    <span><small>Натуральное питание<br>для ваших питомцев</small></span>
+  </a>
+  <nav class="menu" id="menu">
+    <a href="#hits">Хиты</a><a href="#mixes">Миксы</a><a href="#catalog">Каталог</a><a href="#reviews">Отзывы</a><a href="#delivery">Доставка</a><a href="#faq">Вопросы</a><a href="#contacts">Контакты</a>
+    <div class="menu-extra">
+      <a class="btn primary" href="tel:+79120453895">Позвонить</a>
+      <a class="btn ghost" href="https://vk.me/dogfoodnt" target="_blank" rel="noopener">Написать в VK</a>
+    </div>
+  </nav>
+  <button class="cartbtn" id="openCart" aria-label="Открыть корзину">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6h15l-1.5 9h-12z"/><path d="M6 6 5 3H2"/><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/></svg>
+    <span class="lbl" id="cartSumTop">Корзина</span><span class="n" id="cartCount">0</span>
+  </button>
+  <button class="burger" id="burger" aria-label="Меню" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+</div></header>
+
+<main>
+<section class="hero"><div class="wrap">
+  <div>
+    <span class="eyebrow">● Натуральное видотипичное питание</span>
+    <h1>Мясо для собак — <em>основная еда</em>, а не лакомство</h1>
+    <p class="lead">Говядина, индейка, утка, курица, готовые мясные миксы и сушёные лакомства. Привозим по Нижнему Тагилу по графику, оплата — при получении.</p>
+    <div class="btns">
+      <a class="btn primary" href="#catalog">Собрать заказ →</a>
+      <a class="btn ghost" href="#delivery">График доставки</a>
+    </div>
+    <div class="facts">
+      <div class="fact"><i>✓</i>Ветконтроль, система «Меркурий», документы на каждую партию</div>
+      <div class="fact"><i>✓</i>Без ароматизаторов, консервантов и красителей</div>
+      <div class="fact"><i>✓</i>Только отечественные производители</div>
+      <div class="fact"><i>✓</i>Оплата по факту — без предоплаты, выдаём чеки</div>
+    </div>
+  </div>
+  <figure class="hero-photo">
+    <div class="frame"><img src="img/hero-dog.jpg" alt="Довольная собака улыбается" fetchpriority="high"></div>
+    <div class="float f1"><b>от 1500 ₽</b><span>доставка бесплатно</span></div>
+    <div class="float f2"><i>✓</i><span>Ветконтроль<br>«Меркурий»</span></div>
+    <div class="float f3"><i>⏱</i><span>Заказы до 11:00<br>на текущий день</span></div>
+  </figure>
+</div></section>
+
+<section id="hits" style="padding-top:24px"><div class="wrap">
+  <div class="sec-head">
+    <div><h2>Хиты продаж</h2><p>То, что берут чаще всего: основа рациона и любимые лакомства.</p></div>
+  </div>
+  <div class="carousel">
+    <button class="arrow prev" data-hit="prev" aria-label="Назад"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button>
+    <div class="track" id="hitTrack" aria-label="Хиты продаж"></div>
+    <button class="arrow next" data-hit="next" aria-label="Вперёд"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
+  </div>
+  <div class="dots" id="hitDots"></div>
+</div></section>
+
+<section id="mixes"><div class="wrap">
+  <div class="sec-head">
+    <div><h2>Готовые миксы</h2><p>В наших миксах только мясо — мы не продаём овощи по цене мяса. Фасовка в контейнеры, остаётся добавить овощи по вкусу.</p></div>
+  </div>
+  <div class="mixes" id="mixGrid"></div>
+</div></section>
+
+<section id="catalog" style="padding-top:20px"><div class="wrap">
+  <div class="sec-head">
+    <div><h2>Каталог</h2><p>Актуальные цены и наличие. Весовой товар взвешиваем при сборке — точную сумму сообщим перед доставкой.</p></div>
+  </div>
+  <div class="tools">
+    <div class="tabs" id="tabs" role="group" aria-label="Категории"></div>
+    <label class="search"><span class="sr">Поиск</span>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="q" type="search" placeholder="Рубец, печень, шеи…">
+    </label>
+  </div>
+  <div class="grid" id="grid"></div>
+</div></section>
+
+<section id="reviews"><div class="wrap">
+  <div class="sec-head">
+    <div><h2>Отзывы покупателей</h2><p>Настоящие отзывы из обсуждения в нашей группе ВКонтакте — с фото довольных хвостиков.</p></div>
+    <a class="btn ghost" href="https://vk.ru/topic-204176152_48130390" target="_blank" rel="noopener">Все отзывы в VK →</a>
+  </div>
+  <div class="reviews" id="reviewGrid"></div>
+  <div class="rv-more-wrap"><button class="btn ghost" id="rvMore">Показать ещё отзывы</button></div>
+</div></section>
+
+<dialog class="lightbox" id="lightbox" aria-label="Фото из отзыва">
+  <button class="x" data-lbclose aria-label="Закрыть">×</button>
+  <img alt="">
+</dialog>
+
+<section id="delivery"><div class="wrap">
+  <div class="sec-head">
+    <div><h2>Доставка и самовывоз</h2><p>Возим строго по графику, после 18:00. Если вашего района нет в списке — заберите заказ самовывозом.</p></div>
+  </div>
+  <div class="deliv">
+    <div class="days" id="days"></div>
+    <div class="info-stack">
+      <div class="info dark">
+        <div class="big">от 1500 ₽</div>
+        <p>доставка бесплатно. Если меньше — 100 ₽ на адрес. Минимальной суммы нет: привезём даже 100 г лакомств.</p>
+      </div>
+      <div class="info">
+        <h3>Самовывоз</h3>
+        <p>Черноисточинское шоссе, 82<br>Пн–Пт с 15:00 до 17:30, по предварительному заказу</p>
+      </div>
+      <div class="info">
+        <h3>Важно</h3>
+        <p>Заказы на текущий день принимаем до 11:00. Доставка до подъезда; пожилым и людям с инвалидностью поднимем бесплатно. Сб и Вс — выходные.</p>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<section id="faq"><div class="wrap">
+  <div class="sec-head"><div><h2>Частые вопросы</h2></div></div>
+  <div class="faq">
+    <details><summary>Есть ли документы на продукцию?</summary><p>Да. Мы юридическое лицо и выдаём кассовые и товарные чеки. Работаем в системе «Меркурий» — на каждую позицию есть ветеринарные сопроводительные документы, санветбрака нет, вся продукция в сроках годности.</p></details>
+    <details><summary>Когда приедет доставка?</summary><p>Всегда после 18:00 и до последнего клиента — водитель строит маршрут так, чтобы никого не заставлять ждать. Нужно пораньше или попозже — напишите в комментарии к заказу, поставим вас в начало или конец маршрута.</p></details>
+    <details><summary>Как оплатить?</summary><p>Оплата только по факту, предоплату не берём. Наличными или переводом на карту.</p></details>
+    <details><summary>До скольки принимаете заказы?</summary><p>Строго до 11:00 на текущий день доставки или самовывоза. Заказ, оформленный позже, привезём в ближайший день по графику вашего района.</p></details>
+    <details><summary>Как узнать точную сумму заказа?</summary><p>Весовой товар взвешиваем при сборке. Точную сумму мы всегда присылаем заранее — перед доставкой или самовывозом.</p></details>
+    <details><summary>Почему в каталоге нет позиции, которая была раньше?</summary><p>В течение недели некоторые позиции заканчиваются. Мы стараемся сразу обновлять наличие, а если что-то закончилось — предложим замену при подтверждении заказа.</p></details>
+    <details><summary>Поднимете заказ на этаж?</summary><p>Доставка до подъезда. Если спуститься не получается, подъём платный. Пожилым людям и людям с инвалидностью поднимем без проблем.</p></details>
+  </div>
+</div></section>
+
+<section id="contacts"><div class="wrap">
+  <div class="sec-head"><div><h2>Контакты</h2><p>Более 2 200 подписчиков и почти сотня отзывов в нашем сообществе.</p></div></div>
+  <div class="contacts">
+    <div class="clist">
+      <a class="crow" href="tel:+79120453895"><i>☎</i><span><small>Телефон / MAX</small><b>+7 (912) 045-38-95</b></span></a>
+      <a class="crow" href="https://vk.me/dogfoodnt" target="_blank" rel="noopener"><i>✉</i><span><small>Сообщения сообщества</small><b>Написать во ВКонтакте</b></span></a>
+      <a class="crow" href="https://yandex.ru/maps/?text=Нижний%20Тагил%2C%20Черноисточинское%20шоссе%2C%2082" target="_blank" rel="noopener"><i>⌖</i><span><small>Самовывоз, Пн–Пт 15:00–17:30</small><b>Черноисточинское ш., 82</b></span></a>
+      <a class="crow" href="https://vk.ru/topic-204176152_48130390" target="_blank" rel="noopener"><i>★</i><span><small>Отзывы покупателей</small><b>Читать отзывы в VK</b></span></a>
+    </div>
+    <div class="map"><iframe title="Карта: Черноисточинское шоссе, 82" loading="lazy" src="https://yandex.ru/map-widget/v1/?text=%D0%9D%D0%B8%D0%B6%D0%BD%D0%B8%D0%B9%20%D0%A2%D0%B0%D0%B3%D0%B8%D0%BB%2C%20%D0%A7%D0%B5%D1%80%D0%BD%D0%BE%D0%B8%D1%81%D1%82%D0%BE%D1%87%D0%B8%D0%BD%D1%81%D0%BA%D0%BE%D0%B5%20%D1%88%D0%BE%D1%81%D1%81%D0%B5%2C%2082&z=15"></iframe></div>
+  </div>
+</div></section>
+</main>
+
+<footer><div class="wrap">
+  <span>© Дог Фуд НТ, Нижний Тагил</span>
+  <span>Цены и наличие могут меняться в течение недели · <a href="politika.html">Политика обработки персональных данных</a></span>
+  <small style="flex-basis:100%">Часть фото — Wikimedia Commons:
+    <a href="https://commons.wikimedia.org/wiki/File:Smiling_Dog_(2594247316).jpg" target="_blank" rel="noopener">собака на главной</a> (Rennett Stowe, CC BY 2.0),
+    <a href="https://commons.wikimedia.org/wiki/File:Hakket-oksekoed.jpg" target="_blank" rel="noopener">фарш</a>,
+    <a href="https://commons.wikimedia.org/wiki/File:%D0%A4%D0%B0%D1%80%D1%88.jpg" target="_blank" rel="noopener">фарш 2</a>,
+    <a href="https://commons.wikimedia.org/wiki/File:Gesierdecanarddeslandes.jpg" target="_blank" rel="noopener">желудки</a>,
+    <a href="https://commons.wikimedia.org/wiki/File:Frozen-fresh_duck_gizzards.jpg" target="_blank" rel="noopener">утиные желудки</a>,
+    <a href="https://commons.wikimedia.org/wiki/File:Chicken_gizzards.jpg" target="_blank" rel="noopener">куриные желудки</a>,
+    <a href="https://commons.wikimedia.org/wiki/File:Processed_Frozen_Chicken_Feet_%26_frozen_chicken_Paws.jpg" target="_blank" rel="noopener">лапы</a>,
+    <a href="https://commons.wikimedia.org/wiki/File:Preparing_Chicken_Liver_02.JPG" target="_blank" rel="noopener">печень</a>,
+    <a href="https://commons.wikimedia.org/wiki/File:Anci%C3%B6e_crue_a_l%27agro_-_Liguria.jpg" target="_blank" rel="noopener">хамса</a>
+    — авторы и лицензии на страницах файлов.</small>
+</div></footer>
+
+<button class="mbar" id="mbar" hidden><span id="mbarCount">0 позиций</span><span id="mbarSum">0 ₽ →</span></button>
+
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" aria-label="Корзина" aria-hidden="true">
+  <div class="dh"><h3 id="dTitle">Корзина</h3><button class="x" id="closeCart" aria-label="Закрыть">×</button></div>
+  <div class="db" id="dBody"></div>
+  <div class="df" id="dFoot"></div>
+</aside>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ===================== ДАННЫЕ (редактируйте здесь) ===================== */
+// orderEndpoint — приём заказов (order.php, ключи в order-config.php). Пока ключи не заданы или адрес пуст —
+// заказ копируется и отправляется вручную
+const CONTACT = { phone:'+79120453895', vk:'https://vk.me/dogfoodnt', orderEndpoint:'order.php' };
+const FREE_FROM = 1500, DELIVERY_FEE = 100, CUTOFF_HOUR = 11;
+// Прайс из Google Таблицы: ссылки «Опубликовать в интернете → лист → CSV» (см. ПРАЙС-ИНСТРУКЦИЯ.md).
+// Пустая ссылка — используется встроенный прайс ниже.
+const SHEETS = { products:'', mixes:'', schedule:'', holidays:'' };
+// Ниже — встроенный прайс: он показывается, пока таблица не подключена или недоступна
+// Праздничные/нерабочие дни (ГГГГ-ММ-ДД)
+let HOLIDAYS = ['2026-11-04'];
+// График доставки по дням недели (1 = Пн … 5 = Пт)
+let SCHEDULE = {
+  1:['Старатель','Вагонка','Новая Кушва','Валегин Бор'],
+  2:['ГГМ','Старая Гальянка','Голый Камень'],
+  3:[],
+  4:['Вагонка','Новая Кушва','Валегин Бор','Сухоложский посёлок','Верхняя Салда (раздача)'],
+  5:['Центр','Красный Камень','Выя','ГГМ']
+};
+const CATS = [
+  {id:'all',name:'Всё'},
+  {id:'mix',name:'Миксы',cls:'c-beef'},
+  {id:'beef',name:'Говядина',cls:'c-beef'},
+  {id:'turkey',name:'Индейка',cls:'c-turkey'},
+  {id:'duck',name:'Утка',cls:'c-duck'},
+  {id:'chicken',name:'Курица',cls:'c-chicken'},
+  {id:'treat',name:'Сушёные лакомства',cls:'c-treat'},
+  {id:'supp',name:'Добавки',cls:'c-supp'}
+];
+// unit: kg (цена за кг) | pcs (за штуку) | g100 (за 100 г) | lot (цена за кг, продаётся целиком ~approx кг)
+let MIXES = [
+  {id:'m1',n:1,name:'Говяжий основной',for:'для всех пород',price:440,pack:'1 кг',parts:[['Говядина гуляш',60],['Рубец говяжий',40]]},
+  {id:'m2',n:2,name:'Говяжий рацион',for:'для всех пород',price:400,pack:'1 кг',parts:[['Обрезь говяжья',50],['Срез сердца',40],['Печень говяжья',10]]},
+  {id:'m3',n:3,name:'Из говяжьих субпродуктов',for:'для всех пород',price:130,pack:'0,5 кг',parts:[['Лёгкое',40],['Вымя',40],['Селезёнка',20]]},
+  {id:'m4',n:4,name:'Диетический из индейки',for:'для чувствительного пищеварения',price:300,pack:'0,5 кг',parts:[['Мясо индейки',40],['Желудок индейки',40],['Печень индейки',20]]},
+  {id:'m5',n:5,name:'Говяжий питательный',for:'для средних и крупных пород',price:370,pack:'1 кг',parts:[['Подъязычный срез',55],['Вымя',30],['Трахея (хрящ)',10],['Почки',5]]},
+  {id:'m6',n:6,name:'Куриный',for:'полноценный рацион, все породы',price:180,pack:'0,5 кг',parts:[['Спинки мясные',55],['Желудок',20],['Сердце',20],['Печень',5]]},
+  {id:'m7',n:7,name:'Утиный',for:'все породы и даже котики',price:300,pack:'0,5 кг',parts:[['Рагу / филе голени',55],['Желудок без кутикулы',35],['Печень утиная',10]]},
+  {id:'m8',n:8,name:'Рыбный день',for:'разнообразие в рационе',price:165,pack:'0,5 кг',parts:[['Хамса',30],['Путассу',30],['Фарш горбуши',30],['Морская капуста',10]]},
+  {id:'m9',n:9,name:'Для щенков и котиков',for:'мелкий помол, для проблемных зубов',price:220,pack:'0,5 кг',isNew:true,parts:[['Шеи утки',40],['Обрезь корпусная',30],['Сердце',10],['Печень',10],['Трахея',10]]}
+];
+let ITEMS = [
+  ['beef','Вымя говяжье',120,'kg'],
+  ['beef','Губы говяжьи (шерсть)',135,'kg'],
+  ['beef','Кость суставная бульонная',110,'kg'],
+  ['beef','Лёгкое говяжье',170,'kg'],
+  ['beef','Лопаточный хрящ говяжий',230,'kg'],
+  ['beef','Мясное основание бычьего корня',320,'kg','Осталось мало'],
+  ['beef','Нос говяжий (шерсть)',150,'kg'],
+  ['beef','Обрезь говяжья корпусная',370,'kg'],
+  ['beef','Обрезь «Наваристая каша» (жир и жилы)',100,'lot','Распил ≈ 5 кг, цена за кг',5],
+  ['beef','Печень говяжья',210,'kg'],
+  ['beef','Подъязычный срез говяжий',320,'kg'],
+  ['beef','Почки говяжьи',170,'kg'],
+  ['beef','Рубец говяжий зелёный, блок',110,'lot','Блок 17–20 кг, цена за кг',18.5],
+  ['beef','Рубец говяжий зелёный, нарезка',160,'kg','Фасовка по 1 кг',null,1],
+  ['beef','Селезёнка говяжья',110,'kg'],
+  ['beef','Семенники бычьи',175,'kg'],
+  ['beef','Сердце говяжье',380,'kg'],
+  ['beef','Спил говяжий (очень мелкий фарш)',160,'kg','Остатки из-под распила'],
+  ['beef','Срез сердца говяжьего (клапан)',190,'kg'],
+  ['beef','Суповой набор говяжий',120,'kg'],
+  ['beef','Трахея говяжья с привязью',200,'kg'],
+  ['beef','Уши говяжьи (шерсть)',110,'kg'],
+  ['beef','Хвост говяжий (пиленый)',300,'kg'],
+  ['turkey','Головы индейки',130,'kg'],
+  ['turkey','Гузка индейки',190,'kg'],
+  ['turkey','Желудок индейки',390,'kg'],
+  ['turkey','Мясо индейки (филе голени и бедра)',430,'kg','С небольшими хрящиками'],
+  ['turkey','Кожа индейки',150,'kg'],
+  ['turkey','Семенники индюка',360,'kg'],
+  ['turkey','Сердце индейки',700,'kg'],
+  ['turkey','Фарш-масса индейки',90,'kg'],
+  ['turkey','Шеи индейки (пиленые)',240,'kg'],
+  ['duck','Головы утки',140,'kg'],
+  ['duck','Желудок утки',450,'kg'],
+  ['duck','Печень утиная',390,'kg'],
+  ['duck','Фарш утиный (батон 0,9 кг)',170,'pcs'],
+  ['duck','Шеи утиные',200,'kg'],
+  ['chicken','Головы кур (бройлер)',110,'kg'],
+  ['chicken','Головы кур с гребнем',80,'kg'],
+  ['chicken','Желудок куриный (бройлер)',250,'kg'],
+  ['chicken','Лапы куриные (бройлер)',130,'kg'],
+  ['chicken','Печень куриная (бройлер)',280,'kg'],
+  ['chicken','Суповой набор куриный (спинки мясные)',150,'kg'],
+  ['chicken','Шея куриная (бройлер)',150,'kg'],
+  ['chicken','Шея куриная',110,'kg'],
+  ['treat','Бычий корень сушёный',280,'g100'],
+  ['treat','Вымя говяжье сушёное',140,'g100'],
+  ['treat','Лёгкое говяжье сушёное',170,'g100'],
+  ['treat','Медальон мясной сушёный',280,'g100'],
+  ['treat','Нос говяжий сушёный (без шерсти)',220,'g100'],
+  ['treat','Нос говяжий сушёный (шерсть)',160,'g100'],
+  ['treat','Печень говяжья сушёная',210,'g100'],
+  ['treat','Почки говяжьи сушёные',170,'g100'],
+  ['treat','Рубец говяжий сушёный',170,'g100'],
+  ['treat','Трахея говяжья сушёная',220,'g100'],
+  ['treat','Ухо говяжье сушёное без шерсти',220,'g100'],
+  ['treat','Ухо говяжье сушёное (шерсть)',110,'pcs','От 2 шт — по 100 ₽',null,null,{from:2,price:100}],
+  ['supp','Лёгкое говяжье молотое, банка 100 г',300,'pcs','Витаминная добавка · под заказ 2–3 дня'],
+  ['supp','Лёгкое говяжье молотое, банка 200 г',500,'pcs','Витаминная добавка · под заказ 2–3 дня'],
+  ['supp','Печень говяжья молотая, банка 150 г',500,'pcs','Витаминная добавка · под заказ 2–3 дня']
+].map((r,i)=>({id:'p'+i,cat:r[0],name:r[1],price:r[2],unit:r[3],note:r[4]==='Осталось мало'?'':r[4]||'',approx:r[5]||0,step:r[6]||null,bulk:r[7]||null,stock:r[4]==='Осталось мало'?'low':'ok'}));
+
+// Фото: файлы в img/ — снимки из раздела «Товары» группы VK; WM — свободные фото с Wikimedia Commons
+const WM = {
+  mince:'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/Hakket-oksekoed.jpg/960px-Hakket-oksekoed.jpg',
+  'turkey-gizzard':'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Gesierdecanarddeslandes.jpg/960px-Gesierdecanarddeslandes.jpg',
+  'duck-gizzard':'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Frozen-fresh_duck_gizzards.jpg/960px-Frozen-fresh_duck_gizzards.jpg',
+  'chicken-gizzard':'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Chicken_gizzards.jpg/960px-Chicken_gizzards.jpg',
+  'duck-mince':'https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/%D0%A4%D0%B0%D1%80%D1%88.jpg/960px-%D0%A4%D0%B0%D1%80%D1%88.jpg',
+  'chicken-feet':'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Processed_Frozen_Chicken_Feet_%26_frozen_chicken_Paws.jpg/960px-Processed_Frozen_Chicken_Feet_%26_frozen_chicken_Paws.jpg',
+  mix8:'https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Anci%C3%B6e_crue_a_l%27agro_-_Liguria.jpg/960px-Anci%C3%B6e_crue_a_l%27agro_-_Liguria.jpg',
+  'chicken-liver':'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Preparing_Chicken_Liver_02.JPG/960px-Preparing_Chicken_Liver_02.JPG'
+};
+const IMG_BY_NAME = {
+  'Вымя говяжье':'udder','Губы говяжьи (шерсть)':'kaltyk','Кость суставная бульонная':'tail','Лёгкое говяжье':'lung',
+  'Лопаточный хрящ говяжий':'trim-kasha','Мясное основание бычьего корня':'pizzle-dried','Нос говяжий (шерсть)':'nose-dried-fur',
+  'Обрезь говяжья корпусная':'kaltyk','Обрезь «Наваристая каша» (жир и жилы)':'trim-kasha','Печень говяжья':'liver',
+  'Подъязычный срез говяжий':'kaltyk','Почки говяжьи':'kidney','Рубец говяжий зелёный, блок':'tripe','Рубец говяжий зелёный, нарезка':'tripe',
+  'Селезёнка говяжья':'liver','Семенники бычьи':'bull-testicles','Сердце говяжье':'beef-heart','Спил говяжий (очень мелкий фарш)':'mince',
+  'Срез сердца говяжьего (клапан)':'beef-heart','Суповой набор говяжий':'tail','Трахея говяжья с привязью':'trachea-dried',
+  'Уши говяжьи (шерсть)':'ear-dried-fur','Хвост говяжий (пиленый)':'tail',
+  'Головы индейки':'duck-heads','Гузка индейки':'turkey-meat','Желудок индейки':'turkey-gizzard','Мясо индейки (филе голени и бедра)':'turkey-meat',
+  'Кожа индейки':'turkey-meat','Семенники индюка':'turkey-testicles','Сердце индейки':'beef-heart','Фарш-масса индейки':'duck-mince','Шеи индейки (пиленые)':'duck-necks',
+  'Головы утки':'duck-heads','Желудок утки':'duck-gizzard','Печень утиная':'chicken-liver','Фарш утиный (батон 0,9 кг)':'duck-mince','Шеи утиные':'duck-necks',
+  'Головы кур (бройлер)':'hen-heads','Головы кур с гребнем':'hen-heads','Желудок куриный (бройлер)':'chicken-gizzard','Лапы куриные (бройлер)':'chicken-feet',
+  'Печень куриная (бройлер)':'chicken-liver','Суповой набор куриный (спинки мясные)':'mix6','Шея куриная (бройлер)':'duck-necks','Шея куриная':'duck-necks',
+  'Бычий корень сушёный':'pizzle-dried','Вымя говяжье сушёное':'udder-dried','Лёгкое говяжье сушёное':'lung-dried','Медальон мясной сушёный':'medallion',
+  'Нос говяжий сушёный (без шерсти)':'nose-dried','Нос говяжий сушёный (шерсть)':'nose-dried-fur','Печень говяжья сушёная':'liver-dried',
+  'Почки говяжьи сушёные':'kidney-dried','Рубец говяжий сушёный':'tripe-dried','Трахея говяжья сушёная':'trachea-dried',
+  'Ухо говяжье сушёное без шерсти':'ear-dried','Ухо говяжье сушёное (шерсть)':'ear-dried-fur',
+  'Лёгкое говяжье молотое, банка 100 г':'lung-dried','Лёгкое говяжье молотое, банка 200 г':'lung-dried','Печень говяжья молотая, банка 150 г':'liver-dried'
+};
+const MIX_IMG = {1:'mix1',2:'mix2',3:'mix3',4:'mix4',5:'mix5',6:'mix6',7:'duck-gizzard',8:'mix8',9:'mince'};
+// фото: полная ссылка, ключ из WM, имя файла в img/ (с расширением или без)
+const imgSrc = key=>/^https?:\/\//.test(key) ? key : WM[key] || (/\.\w{3,4}$/.test(key) ? `img/${key}` : `img/${key}.jpg`);
+ITEMS.forEach(p=>p.img=imgSrc(IMG_BY_NAME[p.name]||'tripe'));
+
+// каталог = миксы (как товары по штуке) + остальные позиции
+let PRODUCTS = [], BY_ID = {}, ALL_AREAS = [];
+function buildCatalog(){
+  PRODUCTS = [
+    ...MIXES.map(m=>({id:m.id,cat:'mix',name:`Микс №${m.n} «${m.name}»`,price:m.price,unit:'pcs',note:`Контейнер ${m.pack}`,img:m.img||imgSrc(MIX_IMG[m.n]||'tripe'),stock:m.stock||'ok',hit:m.hit})),
+    ...ITEMS
+  ];
+  BY_ID = Object.fromEntries(PRODUCTS.map(p=>[p.id,p]));
+  ALL_AREAS = [...new Set(Object.values(SCHEDULE).flat())].sort((a,b)=>a.localeCompare(b,'ru'));
+}
+buildCatalog();
+
+// Отзывы из темы VK https://vk.ru/topic-204176152_48130390 (имя сокращено, фото из вложений к отзыву)
+const REVIEWS = [
+  {name:'Екатерина Н.',date:'19 ноября 2025',img:'r128',pet:'акита Лиса',text:'Я уже писала раньше отзыв, хочу обновить и сказать, что мы на сухих лакомствах (почти всех видов) сидим плотно 3 года, и ни разу не подвело ни качество, ни сроки, да и общаться всегда очень приятно! Большое спасибо от Лисы и от меня)'},
+  {name:'Светлана П.',date:'',text:'Хочу поставить пять звёзд. Давно заказываю, собакам нравится вообще всё. Сейчас новое поколение перевела полностью на видотипичное питание. Больше никаких каш и кормов! Спасибо, что кормите наших хвостиков!'},
+  {name:'Школа дрессировки',date:'27 марта 2024',img:'r119',text:'Берём на постоянной основе мясо, миксы, сушнину. Высший уровень!!! Миксы беру более года в питомник булли, отличное качество!!!'},
+  {name:'Анна Х.',date:'9 августа 2024',text:'Нашей собаке очень понравилась вяленая рыбка, а от рубца он в неописуемом восторге! Очень замечательно, что некоторые вкусняшки можно брать с собой без холодильника — упаковка удобная и в дороге. Будем заказывать ещё'},
+  {name:'Анастасия Е.',date:'26 декабря 2023',img:'r108',text:'Один из ваших довольных клиентов! Спасибо большое. Отличные мясистые наборы, хороший ценник, надо брать'},
+  {name:'Роман К.',date:'19 декабря 2023',img:'r107',text:'Всё великолепно, рубец шикарный. Клиент доволен, благодарю. Будем кушать у вас'},
+  {name:'Елена Ю.',date:'27 октября 2023',img:'r106',text:'Мы буквально месяц назад приехали в ваш город. Джекушка на натуральном питании, и сразу стали искать, где бы заказать ему мяска. На свой страх и риск сразу заказали около 7–8 кг разного мяса… и не разочаровались. Грызлик счастлив, а если ему хорошо, то и я довольна'},
+  {name:'Ольга Т.',date:'21 февраля 2024',text:'Заказала доставку: сырое мяско и субпродукты, а ещё сушёные вкусняшки. Всё хорошо упаковано, доставили быстро. Наша французская булочка довольна, спасибо большое'},
+  {name:'Женя',date:'13 мая 2023',img:'r97',text:'Первый раз сделала заказ — очень порадовали. Заказ с доставкой на дом в оговоренное время, всё свежее, аккуратно расфасовано, без обмана. Рекомендую. Буду обращаться ещё'},
+  {name:'Мария У.',date:'17 декабря 2022',img:'r86',text:'Хочу сказать огромное спасибо Ксении и её мужу за качество и цену! Беру мясо для собаки уже год. С недавнего времени и сушёные лакомства — улетают на ура, хотя к сушёному она всегда была равнодушна'},
+  {name:'Ольга К.',date:'25 сентября 2022',img:'r75',text:'Приезжаем за мясом из соседнего города уже во второй раз. Мясо, субпродукты хорошего качества, всё свежее, без посторонних запахов. Собачка кушает всё с удовольствием, бодрая, весёлая, шерсть блестящая. И отдельная любовь — сушёные лакомства, наш пёсик любит их безумно'},
+  {name:'Freie Seele',date:'27 февраля 2022',text:'Отзыв про сушёное лёгкое: у собакена просто «срывает крышу», когда его видит. Начинает выпрашивать, очень радуется — готов съесть вместе с пальцами) Хотя обычно всё спокойно берёт из рук'}
+];
+const REVIEWS_SHOWN = 6;
+
+// Хиты для карусели (id из каталога или имя товара) — меняйте под реальные продажи
+let HITS = ['Рубец говяжий зелёный, нарезка','m1','Подъязычный срез говяжий','m6','Сердце говяжье','Печень говяжья','m2','Бычий корень сушёный','Ухо говяжье сушёное (шерсть)','Шеи утиные','Мясо индейки (филе голени и бедра)','Трахея говяжья сушёная'];
+const MIX_COLORS = ['#A3302A','#E8A33D','#3F6B3A','#2F6B6B','#8A5A9E'];
+
+/* ===================== ПРАЙС ИЗ ТАБЛИЦЫ ===================== */
+// CSV → массив строк; поддерживает кавычки, запятые и переносы внутри ячеек
+function parseCSV(text){
+  const rows=[]; let row=[], cell='', q=false;
+  text=text.replace(/^﻿/,'');
+  for(let i=0;i<text.length;i++){
+    const c=text[i];
+    if(q){ if(c==='"'){ if(text[i+1]==='"'){cell+='"';i++} else q=false } else cell+=c; }
+    else if(c==='"') q=true;
+    else if(c===','){ row.push(cell); cell=''; }
+    else if(c==='\n'||c==='\r'){ if(c==='\r'&&text[i+1]==='\n') i++; row.push(cell); rows.push(row); row=[]; cell=''; }
+    else cell+=c;
+  }
+  if(cell!==''||row.length){ row.push(cell); rows.push(row); }
+  return rows.filter(r=>r.some(c=>c.trim()!==''));
+}
+// строки → объекты по заголовкам (заголовки сравниваются без регистра и лишних пробелов)
+function sheetObjects(rows){
+  const head=(rows[0]||[]).map(h=>h.trim().toLowerCase());
+  return rows.slice(1).map(r=>Object.fromEntries(head.map((h,i)=>[h,(r[i]||'').trim()])));
+}
+const col = (o,...names)=>{for(const n of names){const v=o[n.toLowerCase()];if(v!==undefined&&v!=='')return v}return ''};
+const yes = v=>/^(да|yes|\+|1|x|х)$/i.test(String(v).trim());
+const num = v=>{const n=Number(String(v).replace(/\s|₽|р\.?/gi,'').replace(',','.'));return Number.isFinite(n)?n:NaN};
+const stockOf = v=>{v=String(v).trim().toLowerCase();return v==='нет'?'out':v==='мало'?'low':'ok'};
+const UNITS = {'кг':'kg','шт':'pcs','100 г':'g100','100г':'g100','блок':'lot'};
+const WEEKDAYS = {'пн':1,'понедельник':1,'вт':2,'вторник':2,'ср':3,'среда':3,'чт':4,'четверг':4,'пт':5,'пятница':5};
+
+function applySheets(d){
+  const warn=[];
+  if(d.mixes){
+    MIXES=d.mixes.map((r,i)=>{
+      const n=num(col(r,'№','номер')), price=num(col(r,'цена, ₽','цена'));
+      const name=col(r,'название');
+      if(!name||!Number.isFinite(price)){warn.push(`Миксы, строка ${i+2}: нет названия или цены`);return null}
+      // «Говядина гуляш 60; Рубец говяжий 40»
+      const parts=col(r,'состав').split(/[;\n]/).map(s=>s.trim()).filter(Boolean).map(s=>{
+        const m=s.match(/^(.*?)[\s—–-]*(\d+(?:[.,]\d+)?)\s*%?$/); return m?[m[1].trim(),num(m[2])]:[s,0];
+      });
+      const photo=col(r,'фото');
+      return {id:col(r,'код')||('m'+(Number.isFinite(n)?n:i+1)),n:Number.isFinite(n)?n:i+1,name,for:col(r,'для кого'),price,pack:col(r,'фасовка')||'1 кг',
+        parts,isNew:yes(col(r,'новинка')),stock:stockOf(col(r,'наличие')),hit:yes(col(r,'хит')),img:photo?imgSrc(photo):''};
+    }).filter(Boolean);
+  }
+  if(d.products){
+    const catByName=Object.fromEntries(CATS.map(c=>[c.name.toLowerCase(),c.id]));
+    ITEMS=d.products.map((r,i)=>{
+      const name=col(r,'название'), price=num(col(r,'цена, ₽','цена'));
+      const cat=catByName[col(r,'категория').toLowerCase()], unit=UNITS[col(r,'за что цена','единица').toLowerCase()];
+      if(!name||!Number.isFinite(price)||!cat||!unit){warn.push(`Товары, строка ${i+2}: проверьте название, цену, категорию и «за что цена»`);return null}
+      const from=num(col(r,'скидка от, шт')), bprice=num(col(r,'цена со скидкой'));
+      return {id:col(r,'код')||('r'+i),cat,name,price,unit,note:col(r,'примечание'),
+        approx:num(col(r,'вес блока, кг'))||0,step:num(col(r,'шаг'))||null,
+        bulk:Number.isFinite(from)&&Number.isFinite(bprice)?{from,price:bprice}:null,
+        stock:stockOf(col(r,'наличие')),hit:yes(col(r,'хит')),img:imgSrc(col(r,'фото')||IMG_BY_NAME[name]||'tripe')};
+    }).filter(Boolean);
+  }
+  if(d.schedule){
+    SCHEDULE={1:[],2:[],3:[],4:[],5:[]};
+    d.schedule.forEach(r=>{const day=WEEKDAYS[col(r,'день').toLowerCase()]; if(day) SCHEDULE[day]=col(r,'районы').split(/[,;\n]/).map(s=>s.trim()).filter(Boolean)});
+  }
+  if(d.holidays){
+    HOLIDAYS=d.holidays.map(r=>{const v=col(r,'дата');let m=v.match(/^(\d{1,2})\.(\d{1,2})\.(\d{4})$/);
+      if(m) return `${m[3]}-${m[2].padStart(2,'0')}-${m[1].padStart(2,'0')}`; return /^\d{4}-\d{2}-\d{2}$/.test(v)?v:null}).filter(Boolean);
+  }
+  buildCatalog();
+  const flagged=PRODUCTS.filter(p=>p.hit).map(p=>p.id);
+  if(flagged.length) HITS=flagged;
+  if(warn.length) console.warn('Прайс: пропущены строки\n'+warn.join('\n'));
+}
+async function loadSheets(){
+  const entries=Object.entries(SHEETS).filter(([,u])=>u);
+  const get=async u=>{const r=await fetch(u,{cache:'no-store'}); if(!r.ok) throw new Error(u+' → '+r.status); return sheetObjects(parseCSV(await r.text()))};
+  const timeout=new Promise((_,rej)=>setTimeout(()=>rej(new Error('таймаут 8 с')),8000));
+  const data={};
+  await Promise.race([Promise.all(entries.map(async([k,u])=>{data[k]=await get(u)})),timeout]);
+  applySheets(data);
+}
+
+/* ===================== УТИЛИТЫ ===================== */
+const $ = s=>document.querySelector(s);
+const rub = n=>Math.round(n).toLocaleString('ru-RU')+' ₽';
+const esc = s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const unitLabel = p=>({kg:'/кг',pcs:'/шт',g100:'/100 г',lot:'/кг'}[p.unit]);
+const stepOf = p=>p.step || ({kg:0.5,pcs:1,g100:100,lot:1}[p.unit]);
+const fmtQty = (p,q)=>{
+  if(p.unit==='kg') return String(q).replace('.',',')+' кг';
+  if(p.unit==='g100') return q>=1000 ? String(q/1000).replace('.',',')+' кг' : q+' г';
+  if(p.unit==='lot') return q+(p.name.includes('блок')?' блок':' распил');
+  return q+' шт';
+};
+const lineSum = (p,q)=>{
+  if(p.unit==='g100') return p.price*q/100;
+  if(p.unit==='lot') return p.price*p.approx*q;
+  if(p.bulk && q>=p.bulk.from) return p.bulk.price*q;
+  return p.price*q;
+};
+const toast = msg=>{const t=$('#toast');t.textContent=msg;t.classList.add('on');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('on'),1800)};
+
+/* ===================== ВРЕМЯ (Екатеринбург, UTC+5) ===================== */
+const DAYS_RU=['воскресенье','понедельник','вторник','среда','четверг','пятница','суббота'];
+const DAYS_SHORT=['Вс','Пн','Вт','Ср','Чт','Пт','Сб'];
+const MONTHS=['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+function localNow(){const d=new Date();return new Date(d.getTime()+d.getTimezoneOffset()*60000+5*3600000)}
+const ymd = d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+const isWork = d=>d.getDay()>=1&&d.getDay()<=5&&!HOLIDAYS.includes(ymd(d));
+const fmtDay = d=>`${DAYS_SHORT[d.getDay()]}, ${d.getDate()} ${MONTHS[d.getMonth()]}`;
+// ближайшие даты, на которые ещё можно оформить заказ
+function upcoming(n, filterFn){
+  const now=localNow(), out=[]; const d=new Date(now); d.setHours(0,0,0,0);
+  for(let i=0;i<21&&out.length<n;i++){
+    const day=new Date(d); day.setDate(d.getDate()+i);
+    if(!isWork(day)) continue;
+    if(i===0 && now.getHours()>=CUTOFF_HOUR) continue;
+    if(filterFn && !filterFn(day)) continue;
+    out.push(day);
+  }
+  return out;
+}
+function renderCutoff(){
+  const now=localNow(), el=$('#cutoff');
+  if(isWork(now) && now.getHours()<CUTOFF_HOUR){
+    const left=(CUTOFF_HOUR*60)-(now.getHours()*60+now.getMinutes());
+    el.innerHTML=`<span class="dot"></span>Приём заказов на сегодня открыт — осталось ${Math.floor(left/60)} ч ${left%60} мин`;
+  } else {
+    const next=upcoming(1)[0];
+    el.innerHTML=`<span class="dot off"></span>Приём на сегодня закрыт — оформим на ${next?fmtDay(next):'ближайший рабочий день'}`;
+  }
+}
+
+/* ===================== КОРЗИНА ===================== */
+let cart = {};
+try{ cart = JSON.parse(localStorage.getItem('dfnt-cart')||'{}') || {}; }catch(e){ cart={}; }
+const save = ()=>{ try{localStorage.setItem('dfnt-cart',JSON.stringify(cart))}catch(e){} };
+// убрать из корзины то, чего больше нет в прайсе или нет в наличии
+function pruneCart(){ let changed=false; for(const id in cart) if(!BY_ID[id]||BY_ID[id].stock==='out'){ delete cart[id]; changed=true; } if(changed) save(); }
+function setQty(id,q){
+  const p=BY_ID[id]; q=Math.round(q*100)/100;
+  if(q<=0) delete cart[id]; else cart[id]=q;
+  save(); renderAll();
+}
+const inc = id=>{const p=BY_ID[id];setQty(id,(cart[id]||0)+stepOf(p)); const b=$('#openCart');b.classList.remove('bump');void b.offsetWidth;b.classList.add('bump')};
+const dec = id=>{const p=BY_ID[id];setQty(id,(cart[id]||0)-stepOf(p))};
+const totals = ()=>{
+  let sum=0,count=0;
+  for(const id in cart){sum+=lineSum(BY_ID[id],cart[id]);count++}
+  return {sum,count};
+};
+
+/* ===================== РЕНДЕР ===================== */
+let curCat='all', query='';
+function control(p){
+  if(p.stock==='out') return `<span class="out-tag">Нет в наличии</span>`;
+  const q=cart[p.id];
+  if(!q) return `<button class="add" data-add="${p.id}">В корзину</button>`;
+  return `<div class="step"><button data-dec="${p.id}" aria-label="Меньше">−</button><span>${fmtQty(p,q)}</span><button data-inc="${p.id}" aria-label="Больше">+</button></div>`;
+}
+// кольцевая диаграмма состава: сегменты через stroke-dasharray, с зазором 1.5% между долями
+function donut(m){
+  const r=40, C=2*Math.PI*r, gap=m.parts.length>1?C*0.015:0; let off=0;
+  const segs=m.parts.map((x,i)=>{
+    const len=C*x[1]/100;
+    const s=`<circle r="${r}" cx="48" cy="48" stroke="${MIX_COLORS[i]}" stroke-dasharray="${Math.max(len-gap,0)} ${C}" stroke-dashoffset="${-off}"><title>${esc(x[0])} — ${x[1]}%</title></circle>`;
+    off+=len; return s;
+  }).join('');
+  return `<svg class="donut" viewBox="0 0 96 96" role="img" aria-label="Состав микса"><g transform="rotate(-90 48 48)">${segs}</g>
+    <text x="48" y="49" text-anchor="middle" font-size="16">${esc(m.pack.replace(' кг',''))}</text>
+    <text x="48" y="62" text-anchor="middle" font-size="9" style="font-family:Manrope;font-weight:600;fill:var(--muted)">кг</text></svg>`;
+}
+function renderMixes(){
+  $('#mixGrid').innerHTML=MIXES.map(m=>{
+    const p=BY_ID[m.id];
+    return `<article class="mix ${p.stock==='out'?'is-out':''}">
+      <div style="display:flex;justify-content:space-between;align-items:center"><span class="num">МИКС №${m.n}</span>${p.stock==='low'?'<span class="badge low">Осталось мало</span>':m.isNew?'<span class="badge">Новинка</span>':`<span class="badge green">${esc(m.pack)}</span>`}</div>
+      <h3>${esc(m.name)}</h3><div class="for">${esc(m.for)}</div>
+      <div class="comp">${donut(m)}
+        <ul class="legend">${m.parts.map((x,i)=>`<li><i style="background:${MIX_COLORS[i]}"></i>${esc(x[0])}<b>${x[1]}%</b></li>`).join('')}</ul></div>
+      <div class="foot"><span class="price">${rub(m.price)} <small>/ ${m.pack}</small></span>${control(p)}</div>
+    </article>`}).join('');
+}
+// карусель строится один раз (чтобы не сбрасывать прокрутку), дальше обновляются только кнопки
+function renderHits(){
+  const track=$('#hitTrack');
+  const items=HITS.map(h=>BY_ID[h]||PRODUCTS.find(p=>p.name===h)).filter(p=>p&&p.stock!=='out');
+  if(!track.children.length){
+    track.innerHTML=items.map(p=>`<article class="hit">
+      <div class="ph"><img src="${p.img}" alt="${esc(p.name)}" loading="lazy"><span class="badge hot">Хит</span></div>
+      <div class="hb"><h4>${esc(p.name)}</h4>${p.note?`<div class="note">${esc(p.note)}</div>`:''}
+      <div class="foot"><span class="price">${rub(p.price)}<small>${unitLabel(p)}</small></span><span data-ctl="${p.id}"></span></div></div>
+    </article>`).join('');
+    $('#hitDots').innerHTML=items.map((_,i)=>`<button data-dot="${i}" aria-label="Слайд ${i+1}"></button>`).join('');
+  }
+  track.querySelectorAll('[data-ctl]').forEach(s=>s.innerHTML=control(BY_ID[s.dataset.ctl]));
+}
+function hitStep(){const t=$('#hitTrack');const c=t.querySelector('.hit');return c?c.getBoundingClientRect().width+16:300}
+function hitIndex(){return Math.round($('#hitTrack').scrollLeft/hitStep())}
+function hitGo(i){const t=$('#hitTrack');const max=t.scrollWidth-t.clientWidth;let x=i*hitStep();if(x>max+4)x=0;if(x<0)x=max;t.scrollTo({left:x,behavior:'smooth'})}
+function syncDots(){const i=hitIndex();document.querySelectorAll('#hitDots button').forEach((b,k)=>b.setAttribute('aria-current',k===i))}
+function renderReviews(){
+  $('#reviewGrid').innerHTML=REVIEWS.map((r,i)=>`<figure class="rv ${i>=REVIEWS_SHOWN?'extra':''}">
+    ${r.img?`<button class="rv-ph" data-lb="img/reviews/${r.img}.jpg" aria-label="Открыть фото"><img src="img/reviews/${r.img}.jpg" alt="Фото из отзыва: ${esc(r.name)}" loading="lazy"></button>`:''}
+    <blockquote>${esc(r.text)}</blockquote>
+    <figcaption><span class="av">${esc(r.name[0])}</span><span><b>${esc(r.name)}</b><small>${r.date?esc(r.date)+' · ':''}ВКонтакте</small></span></figcaption>
+  </figure>`).join('');
+  $('#rvMore').parentElement.hidden=REVIEWS.length<=REVIEWS_SHOWN;
+}
+function renderTabs(){
+  $('#tabs').innerHTML=CATS.map(c=>`<button class="tab" data-cat="${c.id}" aria-pressed="${c.id===curCat}">${c.name}</button>`).join('');
+}
+function renderGrid(){
+  const q=query.trim().toLowerCase();
+  // позиции «нет в наличии» — в конце списка
+  const list=PRODUCTS.filter(p=>(curCat==='all'||p.cat===curCat)&&(!q||p.name.toLowerCase().includes(q)))
+    .sort((a,b)=>(a.stock==='out')-(b.stock==='out'));
+  const cat=Object.fromEntries(CATS.map(c=>[c.id,c]));
+  $('#grid').innerHTML=list.length?list.map(p=>`<div class="item ${p.stock==='out'?'is-out':''}">
+      <div class="ph"><img src="${p.img}" alt="${esc(p.name)}" loading="lazy">${p.stock==='low'?'<span class="badge low">Осталось мало</span>':''}</div>
+      <span class="cat ${cat[p.cat].cls}">${cat[p.cat].name}</span>
+      <h4>${esc(p.name)}</h4>${p.note?`<div class="note">${esc(p.note)}</div>`:''}
+      <div class="foot"><span class="price">${rub(p.price)}<small>${unitLabel(p)}</small></span>${control(p)}</div>
+    </div>`).join(''):`<div class="empty">Ничего не нашли. Напишите нам — подскажем, что есть в наличии.</div>`;
+}
+function renderDays(){
+  const now=localNow(); const monday=new Date(now); monday.setHours(0,0,0,0); monday.setDate(now.getDate()-((now.getDay()+6)%7));
+  let html='';
+  for(let i=0;i<5;i++){
+    const d=new Date(monday); d.setDate(monday.getDate()+i);
+    const areas=SCHEDULE[d.getDay()]||[]; const hol=HOLIDAYS.includes(ymd(d));
+    const today=ymd(d)===ymd(now);
+    html+=`<div class="day ${today?'today':''} ${hol||!areas.length?'off':''}"><div><b>${DAYS_RU[d.getDay()][0].toUpperCase()+DAYS_RU[d.getDay()].slice(1)}</b><div style="font-size:13px;color:var(--muted)">${d.getDate()} ${MONTHS[d.getMonth()]}${today?' · сегодня':''}</div></div>
+      <div class="areas">${hol?'Праздничный день — доставки и самовывоза нет':!areas.length?'Доставки нет, самовывоз 15:00–17:30':`<div class="chips">${areas.map(a=>`<span class="chip ${a.includes('Салда')?'hl':''}">${a}</span>`).join('')}</div>`}</div></div>`;
+  }
+  html+=`<div class="day off"><div><b>Сб — Вс</b></div><div class="areas">Выходные</div></div>`;
+  $('#days').innerHTML=html;
+}
+
+/* ===================== ОФОРМЛЕНИЕ ===================== */
+let form={}; try{form=JSON.parse(localStorage.getItem('dfnt-form')||'{}')||{}}catch(e){form={}}
+form.method=form.method||'delivery'; form.day='';
+const saveForm=()=>{try{const {day,...rest}=form;localStorage.setItem('dfnt-form',JSON.stringify(rest))}catch(e){}};
+let stage='cart', sendState='idle', sentId='';
+
+function orderPayload(){
+  const {sum}=totals();
+  return {
+    items:Object.keys(cart).map(id=>({name:BY_ID[id].name,qty:fmtQty(BY_ID[id],cart[id])})),
+    total:Math.round(sum), fee:form.method==='delivery'&&sum<FREE_FROM?DELIVERY_FEE:0,
+    method:form.method, area:form.method==='delivery'?form.area:'', address:form.method==='delivery'?form.address:'',
+    day:form.day, name:form.name||'', phone:form.phone||'', comment:form.comment||'', website:form.website||''
+  };
+}
+// автоотправка включается, только если order.php ответил, что ключи VK/MAX настроены
+let orderReady=false;
+if(CONTACT.orderEndpoint) fetch(CONTACT.orderEndpoint+'?ping',{cache:'no-store'}).then(r=>r.json()).then(d=>{orderReady=!!d.ready}).catch(()=>{});
+async function submitOrder(){
+  sendState='sending'; renderDrawer();
+  try{
+    const r=await fetch(CONTACT.orderEndpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(orderPayload())});
+    const d=await r.json().catch(()=>({}));
+    if(!r.ok||!d.ok) throw new Error(d.error||String(r.status));
+    sentId=d.id; cart={}; save(); stage='done'; sendState='idle'; renderAll();
+  }catch(e){ sendState='error'; renderDrawer(); }
+}
+
+function dayOptions(){
+  if(form.method==='pickup') return upcoming(5);
+  if(!form.area) return [];
+  return upcoming(4,d=>(SCHEDULE[d.getDay()]||[]).includes(form.area));
+}
+function orderText(){
+  const {sum}=totals(); const p=BY_ID;
+  const lines=Object.keys(cart).map((id,i)=>`${i+1}. ${p[id].name} — ${fmtQty(p[id],cart[id])}`);
+  const fee=form.method==='delivery'&&sum<FREE_FROM?DELIVERY_FEE:0;
+  return [
+    'Здравствуйте! Хочу сделать заказ:', ...lines, '',
+    `Предварительно: ~${rub(sum)}${fee?` + доставка ${fee} ₽`:''}`,
+    form.method==='delivery'
+      ? `Доставка: ${form.area}, ${form.day}\nАдрес: ${form.address||''}`
+      : `Самовывоз (Черноисточинское ш., 82): ${form.day}`,
+    `Имя: ${form.name||''}`, `Телефон: ${form.phone||''}`,
+    form.comment?`Комментарий: ${form.comment}`:''
+  ].filter(x=>x!=='').join('\n');
+}
+function renderDrawer(){
+  const {sum,count}=totals(); const body=$('#dBody'), foot=$('#dFoot');
+  if(stage==='done'){
+    $('#dTitle').textContent='Заказ отправлен';
+    body.innerHTML=`<div class="done"><div class="done-ic">✓</div><h3>Спасибо! Заказ № ${esc(sentId)} у нас</h3>
+      <p>Скоро ответим в сообщениях или позвоним по номеру ${esc(form.phone||'')}: подтвердим день доставки и точную сумму.</p>
+      <p class="hint">Заказы на текущий день принимаем до 11:00. Если вопрос срочный — <a href="tel:${CONTACT.phone}">позвоните нам</a>.</p></div>`;
+    foot.innerHTML=`<button class="btn ghost full" data-close>Вернуться на сайт</button>`;
+    return;
+  }
+  if(!count){
+    $('#dTitle').textContent='Корзина';
+    body.innerHTML=`<div class="empty" style="padding:60px 10px"><div style="font-size:42px">🐾</div><p>Корзина пока пуста</p><a class="btn primary" href="#catalog" data-close>Перейти в каталог</a></div>`;
+    foot.innerHTML=''; return;
+  }
+  const fee=form.method==='delivery'&&sum<FREE_FROM?DELIVERY_FEE:0;
+  const pct=Math.min(100,sum/FREE_FROM*100);
+  const totalsHtml=`<div class="tot"><span>Товары (предварительно)</span><b>${rub(sum)}</b></div>
+    <div class="tot"><span>${form.method==='pickup'?'Самовывоз':'Доставка'}</span><b>${fee?rub(fee):'бесплатно'}</b></div>
+    <div class="tot big2"><span>Итого</span><span>~${rub(sum+fee)}</span></div>`;
+
+  if(stage==='cart'){
+    $('#dTitle').textContent=`Корзина · ${count}`;
+    body.innerHTML=`<div class="progress">${sum>=FREE_FROM?'Доставка бесплатная 🎉':`До бесплатной доставки ещё ${rub(FREE_FROM-sum)}`}<div class="bar"><span style="width:${pct}%"></span></div></div>`+
+      Object.keys(cart).map(id=>{const p=BY_ID[id];return `<div class="line">
+        <div><div class="nm">${esc(p.name)}</div><div class="sub">${rub(p.price)}${unitLabel(p)}${p.unit==='lot'?` · ≈${String(p.approx).replace('.',',')} кг`:''}</div></div>
+        <div class="sum">${rub(lineSum(p,cart[id]))}</div>
+        ${control(p)}<button class="rm" data-rm="${id}">Убрать</button></div>`}).join('');
+    foot.innerHTML=totalsHtml+`<p class="hint">Весовой товар взвешиваем при сборке — точную сумму пришлём перед доставкой.</p>
+      <button class="btn primary full" data-stage="form">Оформить заказ</button>`;
+  } else if(stage==='form'){
+    $('#dTitle').textContent='Оформление';
+    const opts=dayOptions(); if(!opts.some(d=>fmtDay(d)===form.day)) form.day=opts[0]?fmtDay(opts[0]):'';
+    body.innerHTML=`<div class="form">
+      <div class="seg" role="group" aria-label="Способ получения">
+        <button data-method="delivery" aria-pressed="${form.method==='delivery'}">Доставка</button>
+        <button data-method="pickup" aria-pressed="${form.method==='pickup'}">Самовывоз</button>
+      </div>
+      ${form.method==='delivery'?`
+        <label>Район<select data-f="area"><option value="">Выберите район</option>${ALL_AREAS.map(a=>`<option ${a===form.area?'selected':''}>${a}</option>`).join('')}</select></label>
+        <label>Адрес<input data-f="address" value="${esc(form.address||'')}" placeholder="Улица, дом, подъезд"></label>`
+      :`<div class="info" style="padding:14px"><p><b style="color:var(--ink)">Черноисточинское шоссе, 82</b><br>Пн–Пт, 15:00–17:30</p></div>`}
+      <div><div style="font-size:13px;font-weight:700;margin-bottom:6px">День</div>
+        ${opts.length?`<div class="dayopts">${opts.map(d=>`<button data-day="${fmtDay(d)}" aria-pressed="${fmtDay(d)===form.day}">${fmtDay(d)}</button>`).join('')}</div>`
+        :`<p class="hint" style="margin:0">${form.method==='delivery'&&!form.area?'Сначала выберите район — покажем ближайшие дни доставки.':'Ближайших дат нет — напишите нам.'}</p>`}
+        <p class="hint" style="margin-bottom:0">Заказы на текущий день — до 11:00. Доставка после 18:00.</p></div>
+      <label>Имя<input data-f="name" value="${esc(form.name||'')}" autocomplete="name"></label>
+      <label>Телефон<input data-f="phone" type="tel" value="${esc(form.phone||'')}" placeholder="+7" autocomplete="tel"></label>
+      <label>Комментарий<textarea data-f="comment" rows="2" placeholder="Например: привезти пораньше">${esc(form.comment||'')}</textarea></label>
+      <label class="hp" aria-hidden="true">Сайт<input data-f="website" tabindex="-1" autocomplete="off"></label>
+      <div class="err" id="err"></div>
+    </div>`;
+    foot.innerHTML=totalsHtml+`<div style="display:grid;grid-template-columns:auto 1fr;gap:8px;margin-top:12px">
+      <button class="btn ghost" data-stage="cart">←</button><button class="btn primary full" data-stage="send">Продолжить</button></div>`;
+  } else if(CONTACT.orderEndpoint && orderReady && sendState!=='error'){
+    $('#dTitle').textContent='Проверьте заказ';
+    body.innerHTML=`<div class="preview">${esc(orderText())}</div>
+      <p class="hint">Заказ придёт нам в сообщения. Мы ответим или позвоним, подтвердим день и пришлём точную сумму после взвешивания.</p>
+      <p class="hint" style="margin-top:0">Нажимая «Отправить заказ», вы соглашаетесь на обработку имени, телефона и адреса для доставки по <a href="politika.html" target="_blank">политике обработки персональных данных</a>.</p>`;
+    foot.innerHTML=totalsHtml+`<div style="display:grid;grid-template-columns:auto 1fr;gap:8px;margin-top:12px">
+      <button class="btn ghost" data-stage="form" ${sendState==='sending'?'disabled':''}>←</button>
+      <button class="btn primary full" data-submit ${sendState==='sending'?'disabled':''}>${sendState==='sending'?'Отправляем…':'Отправить заказ'}</button></div>`;
+  } else {
+    $('#dTitle').textContent='Отправка заказа';
+    body.innerHTML=`${sendState==='error'?`<div class="err-box">Не получилось отправить заказ автоматически. Отправьте его, пожалуйста, вручную — это займёт полминуты.</div>`:''}<p style="margin-top:0">Скопируйте заказ и отправьте его нам в сообщения — мы ответим, на какой день он принят, и пришлём точную сумму.</p>
+      <div class="preview" id="preview">${esc(orderText())}</div>
+      <div style="display:grid;gap:10px;margin-top:14px">
+        <button class="btn primary full" data-send="vk">Скопировать и открыть VK</button>
+        <button class="btn ghost full" data-send="copy">Скопировать текст (для MAX)</button>
+        <a class="btn ghost full" href="tel:${CONTACT.phone}">Позвонить: +7 (912) 045-38-95</a>
+      </div>`;
+    foot.innerHTML=`<div style="display:grid;grid-template-columns:auto 1fr;gap:8px">
+      <button class="btn ghost" data-stage="form">←</button><button class="btn ghost full" data-clear>Заказ отправлен — очистить корзину</button></div>`;
+  }
+}
+function validate(){
+  if(form.method==='delivery'){
+    if(!form.area) return 'Выберите район доставки';
+    if(!(form.address||'').trim()) return 'Укажите адрес';
+  }
+  if(!form.day) return 'Выберите день';
+  if((form.phone||'').replace(/\D/g,'').length<10) return 'Укажите телефон для связи';
+  return '';
+}
+async function copy(text){
+  try{await navigator.clipboard.writeText(text);return true}catch(e){
+    const ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();
+    let ok=false;try{ok=document.execCommand('copy')}catch(_){}ta.remove();return ok;
+  }
+}
+
+function renderTop(){
+  const {sum,count}=totals();
+  $('#cartCount').textContent=count;
+  $('#cartSumTop').textContent=count?rub(sum):'Корзина';
+  const mb=$('#mbar'); mb.hidden=!count||$('#drawer').classList.contains('on');
+  $('#mbarCount').textContent=count+' '+(count%10===1&&count%100!==11?'позиция':[2,3,4].includes(count%10)&&![12,13,14].includes(count%100)?'позиции':'позиций');
+  $('#mbarSum').textContent=rub(sum)+' →';
+}
+function renderAll(){renderHits();renderMixes();renderGrid();renderTop();if($('#drawer').classList.contains('on'))renderDrawer()}
+
+let dataReady=false;
+function openCart(){if(!dataReady){toast('Загружаем прайс…');return}stage='cart';sendState='idle';$('#drawer').classList.add('on');$('#drawer').setAttribute('aria-hidden','false');$('#scrim').classList.add('on');document.body.style.overflow='hidden';renderDrawer();renderTop()}
+function closeCart(){$('#drawer').classList.remove('on');$('#drawer').setAttribute('aria-hidden','true');$('#scrim').classList.remove('on');document.body.style.overflow='';renderTop()}
+
+/* ===================== СОБЫТИЯ ===================== */
+document.addEventListener('click',async e=>{
+  const t=e.target.closest('button,a'); if(!t) return;
+  const d=t.dataset;
+  if(d.add){inc(d.add);toast('Добавлено в корзину')}
+  else if(d.inc) inc(d.inc);
+  else if(d.dec) dec(d.dec);
+  else if(d.rm) setQty(d.rm,0);
+  else if(d.cat){curCat=d.cat;renderTabs();renderGrid()}
+  else if(d.hit){hitGo(hitIndex()+(d.hit==='next'?1:-1))}
+  else if(d.dot){hitGo(+d.dot)}
+  else if(d.lb){const lb=$('#lightbox');lb.querySelector('img').src=d.lb;lb.showModal()}
+  else if(d.lbclose!==undefined){$('#lightbox').close()}
+  else if(t.id==='rvMore'){$('#reviews').classList.add('open');t.parentElement.hidden=true}
+  else if(t.id==='openCart'||t.id==='mbar') openCart();
+  else if(t.id==='closeCart'||d.close!==undefined) closeCart();
+  else if(d.method){form.method=d.method;form.day='';saveForm();renderDrawer()}
+  else if(d.day){form.day=d.day;renderDrawer()}
+  else if(d.stage){
+    if(d.stage==='send'){const err=validate(); if(err){$('#err').textContent=err;return}}
+    stage=d.stage;sendState='idle';renderDrawer();$('#dBody').scrollTop=0;
+  }
+  else if(d.send){
+    const ok=await copy(orderText());
+    toast(ok?'Текст заказа скопирован':'Скопируйте текст вручную');
+    if(d.send==='vk') window.open(CONTACT.vk,'_blank','noopener');
+  }
+  else if(d.submit!==undefined){if(sendState!=='sending')submitOrder()}
+  else if(d.clear!==undefined){cart={};save();closeCart();renderAll();toast('Спасибо за заказ! 🐾')}
+});
+$('#scrim').addEventListener('click',closeCart);
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeCart()});
+$('#q').addEventListener('input',e=>{query=e.target.value;if(query&&curCat!=='all'){curCat='all';renderTabs()}renderGrid()});
+$('#dBody').addEventListener('input',e=>{
+  const f=e.target.dataset.f; if(!f) return;
+  form[f]=e.target.value; saveForm();
+  if(f==='area'){form.day='';renderDrawer()}
+  const er=$('#err'); if(er) er.textContent='';
+});
+
+$('#lightbox').addEventListener('click',e=>{if(e.target.id==='lightbox')e.target.close()});
+// мобильное меню: открыть/закрыть по бургеру, закрыть по ссылке, клику мимо или Esc
+const setMenu=open=>{$('header.top').classList.toggle('open',open);$('#burger').setAttribute('aria-expanded',open)};
+$('#burger').addEventListener('click',e=>{e.stopPropagation();setMenu(!$('header.top').classList.contains('open'))});
+$('#menu').addEventListener('click',e=>{if(e.target.closest('a'))setMenu(false)});
+document.addEventListener('click',e=>{if(!e.target.closest('header.top'))setMenu(false)});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')setMenu(false)});
+renderTabs();renderReviews();
+setInterval(renderCutoff,60000);
+// сначала прайс из таблицы (если подключена), затем всё, что от него зависит; при ошибке — встроенный прайс
+const sheetsOn=Object.values(SHEETS).some(Boolean);
+if(sheetsOn) ['#grid','#mixGrid'].forEach(s=>$(s).innerHTML='<div class="empty">Загружаем актуальный прайс…</div>');
+(sheetsOn?loadSheets():Promise.resolve()).catch(e=>console.warn('Прайс из таблицы не загрузился, показан встроенный:',e.message))
+  .finally(()=>{dataReady=true;pruneCart();$('#hitTrack').innerHTML='';renderDays();renderCutoff();renderAll();dispatchEvent(new Event('resize'));syncDots()});
+// автопрокрутка карусели; пауза при наведении, касании и если пользователь просит меньше анимации
+(()=>{
+  const wrap=$('#hits'), t=$('#hitTrack'); let paused=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let st; t.addEventListener('scroll',()=>{clearTimeout(st);st=setTimeout(syncDots,80)});
+  ['mouseenter','touchstart','focusin'].forEach(e=>wrap.addEventListener(e,()=>paused=true,{passive:true}));
+  wrap.addEventListener('mouseleave',()=>paused=false);
+  setInterval(()=>{if(!paused&&!document.hidden)hitGo(hitIndex()+1)},4500);
+  // стрелки — по центру фото, а не всей карточки
+  const placeArrows=()=>{const ph=t.querySelector('.hit .ph');if(ph)t.parentElement.style.setProperty('--arrow-top',(ph.offsetHeight/2+4)+'px')};
+  addEventListener('resize',placeArrows); placeArrows();
+  syncDots();
+})();
+</script>
+</body>
+</html>
