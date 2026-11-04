@@ -522,7 +522,7 @@
    "step": null,
    "bulk": null,
    "stock": "ok",
-   "hit": true,
+   "hit": false,
    "img": "img/beef-heart.jpg"
   },
   {
@@ -1131,5 +1131,5 @@
    "img": "img/liver-dried.jpg"
   }
  ],
- "updated": "2026-11-04T16:50:34.565Z"
+ "updated": "2026-11-04T16:54:11.597Z"
 }
