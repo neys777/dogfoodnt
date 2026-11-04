@@ -264,6 +264,8 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 .hint{font-size:12.5px;color:var(--muted);margin:8px 0 12px}
 .form{display:grid;gap:12px;margin-top:6px}
 .form label{display:grid;gap:5px;font-size:13px;font-weight:700}
+.form label.consent{display:flex;gap:10px;align-items:flex-start;font-weight:600;font-size:13px;line-height:1.45;color:var(--muted)}
+.form label.consent input{width:20px;height:20px;margin:0;flex:none;accent-color:var(--red);padding:0}
 .form input,.form select,.form textarea{padding:11px 12px;border-radius:11px;border:1px solid var(--line);background:var(--paper);font-weight:500;font-size:15px}
 .form input:focus,.form select:focus,.form textarea:focus{outline:2px solid var(--red);outline-offset:0}
 .seg{display:grid;grid-template-columns:1fr 1fr;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:4px}
@@ -478,8 +480,9 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 </main>
 
 <footer><div class="wrap">
-  <span>© Дог Фуд НТ, Нижний Тагил</span>
-  <span>Цены и наличие могут меняться в течение недели · <a href="politika.html">Политика обработки персональных данных</a></span>
+  <span>© Дог Фуд НТ, Нижний Тагил · Цены и наличие могут меняться в течение недели</span>
+  <span><a href="usloviya.html">Условия продажи и доставки</a> · <a href="politika.html">Политика обработки персональных данных</a> · <a href="soglasie.html">Согласие на обработку данных</a></span>
+  <small style="flex-basis:100%">Продавец: ИП Исаев Анатолий Александрович, ИНН 662320856455, ОГРНИП 324665800025928. 622049, Свердловская обл., г. Нижний Тагил, Черноисточинское ш., д. 82</small>
   <small style="flex-basis:100%">Часть фото — Wikimedia Commons:
     <a href="https://commons.wikimedia.org/wiki/File:Smiling_Dog_(2594247316).jpg" target="_blank" rel="noopener">собака на главной</a> (Rennett Stowe, CC BY 2.0),
     <a href="https://commons.wikimedia.org/wiki/File:Hakket-oksekoed.jpg" target="_blank" rel="noopener">фарш</a>,
@@ -915,7 +918,8 @@ function renderDays(){
 
 /* ===================== ОФОРМЛЕНИЕ ===================== */
 let form={}; try{form=JSON.parse(localStorage.getItem('dfnt-form')||'{}')||{}}catch(e){form={}}
-form.method=form.method||'delivery'; form.day='';
+// согласие на обработку ПДн даётся заново при каждом заказе, не запоминается
+form.method=form.method||'delivery'; form.day=''; form.consent=false;
 const saveForm=()=>{try{const {day,...rest}=form;localStorage.setItem('dfnt-form',JSON.stringify(rest))}catch(e){}};
 let stage='cart', sendState='idle', sentId='';
 
@@ -1009,6 +1013,7 @@ function renderDrawer(){
       <label>Имя<input data-f="name" value="${esc(form.name||'')}" autocomplete="name"></label>
       <label>Телефон<input data-f="phone" type="tel" value="${esc(form.phone||'')}" placeholder="+7" autocomplete="tel"></label>
       <label>Комментарий<textarea data-f="comment" rows="2" placeholder="Например: привезти пораньше">${esc(form.comment||'')}</textarea></label>
+      <label class="consent"><input type="checkbox" data-f="consent" ${form.consent?'checked':''}><span>Даю <a href="soglasie.html" target="_blank">согласие на обработку персональных данных</a> и принимаю <a href="usloviya.html" target="_blank">условия продажи и доставки</a></span></label>
       <label class="hp" aria-hidden="true">Сайт<input data-f="website" tabindex="-1" autocomplete="off"></label>
       <div class="err" id="err"></div>
     </div>`;
@@ -1018,7 +1023,7 @@ function renderDrawer(){
     $('#dTitle').textContent='Проверьте заказ';
     body.innerHTML=`<div class="preview">${esc(orderText())}</div>
       <p class="hint">Заказ придёт нам в сообщения. Мы ответим или позвоним, подтвердим день и пришлём точную сумму после взвешивания.</p>
-      <p class="hint" style="margin-top:0">Нажимая «Отправить заказ», вы соглашаетесь на обработку имени, телефона и адреса для доставки по <a href="politika.html" target="_blank">политике обработки персональных данных</a>.</p>`;
+      <p class="hint" style="margin-top:0">Данные обрабатываются по <a href="politika.html" target="_blank">политике обработки персональных данных</a>.</p>`;
     foot.innerHTML=totalsHtml+`<div style="display:grid;grid-template-columns:auto 1fr;gap:8px;margin-top:12px">
       <button class="btn ghost" data-stage="form" ${sendState==='sending'?'disabled':''}>←</button>
       <button class="btn primary full" data-submit ${sendState==='sending'?'disabled':''}>${sendState==='sending'?'Отправляем…':'Отправить заказ'}</button></div>`;
@@ -1042,6 +1047,7 @@ function validate(){
   }
   if(!form.day) return 'Выберите день';
   if((form.phone||'').replace(/\D/g,'').length<10) return 'Укажите телефон для связи';
+  if(!form.consent) return 'Отметьте согласие на обработку персональных данных';
   return '';
 }
 async function copy(text){
@@ -1100,7 +1106,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeCart()});
 $('#q').addEventListener('input',e=>{query=e.target.value;if(query&&curCat!=='all'){curCat='all';renderTabs()}renderGrid()});
 $('#dBody').addEventListener('input',e=>{
   const f=e.target.dataset.f; if(!f) return;
-  form[f]=e.target.value; saveForm();
+  form[f]=e.target.type==='checkbox'?e.target.checked:e.target.value; saveForm();
   if(f==='area'){form.day='';renderDrawer()}
   const er=$('#err'); if(er) er.textContent='';
 });
